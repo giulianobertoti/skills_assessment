@@ -24,7 +24,7 @@ public class REST{
 		this.model = store;
 	}
 	
-	public void makeRoute(){
+	public void getStudentCompetencies(){
 		
 		get(new Route("/competencies/:ra") {
 	         @Override
@@ -41,6 +41,13 @@ public class REST{
 
 	        		jsonObj.put("name", student.getName());
 	        		jsonObj.put("lidership", student.getCompetencies().getLeadership());
+	        		jsonObj.put("communication", student.getCompetencies().getCommunication());
+	        		jsonObj.put("values", student.getCompetencies().getValues());
+	        		jsonObj.put("workGroup", student.getCompetencies().getWorkGroup());
+	        		jsonObj.put("determination", student.getCompetencies().getDetermination());
+	        		jsonObj.put("resilience", student.getCompetencies().getResilience());
+	        		jsonObj.put("autonomy", student.getCompetencies().getAutonomy());
+	        		
 	             	jsonResult.put(jsonObj);
 	             	
 	             	return jsonResult;
@@ -56,7 +63,49 @@ public class REST{
 	         }
 	         
 	      });
+
 	         
+	}
+	
+	public void getQuestionByNumber(){
+		
+		get(new Route("/questions/:number") {
+	         @Override
+	         public Object handle(Request request, Response response) {
+	        	
+	            Integer number = Integer.parseInt(request.params(":number"));
+	        	
+	            
+	            try {
+	            	Question question = model.searchQuestionByCode(number);
+	            	
+	            	JSONArray jsonResult = new JSONArray();
+	         	    JSONObject jsonObj = new JSONObject();
+
+	         	    jsonObj.put("number", question.getNumber());
+	        		jsonObj.put("introduction", question.getIntroduction());
+	        		jsonObj.put("question", question.getQuestion());
+	        		for(int i = 0; i<question.getAnswers().size(); i++){
+	        			jsonObj.put("answer"+i, question.getAnswers().get(i).getCode());
+	        		}
+	        		
+	        		
+	             	jsonResult.put(jsonObj);
+	             	
+	             	return jsonResult;
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+	         	    	
+	
+	     	    return null;
+	     	     
+	         }
+	         
+	      });
+		
 	}
 		
 }
