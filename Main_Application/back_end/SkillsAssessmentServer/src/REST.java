@@ -79,19 +79,48 @@ public class REST{
 	            try {
 	            	Question question = model.searchQuestionByCode(number);
 	            	
-	            	JSONArray jsonResult = new JSONArray();
-	         	    JSONObject jsonObj = new JSONObject();
+	            	JSONArray jsonResult = new JSONArray(); //first
+	         	    JSONObject jsonObjQuestion = new JSONObject();
+	         	    JSONObject jsonObjAnswer = new JSONObject();
 
-	         	    jsonObj.put("number", question.getNumber());
-	        		jsonObj.put("introduction", question.getIntroduction());
-	        		jsonObj.put("question", question.getQuestion());
+	         	    jsonObjQuestion.put("number", question.getNumber());
+	        		jsonObjQuestion.put("introduction", question.getIntroduction());
+	        		jsonObjQuestion.put("question", question.getQuestion());
+	        		
+	        		JSONArray jsonResultAnswers = new JSONArray(); //second
+	        		JSONObject [] innerObjectAnswer = new JSONObject[question.getAnswers().size()];
+	        		
+	        		JSONArray jsonResultCompetencies = new JSONArray(); //third
+	        		
 	        		for(int i = 0; i<question.getAnswers().size(); i++){
-	        			jsonObj.put("answer"+i, question.getAnswers().get(i).getCode());
+	        			innerObjectAnswer[i]=new JSONObject();
+	        			innerObjectAnswer[i].put("code", question.getAnswers().get(i).getCode());
+	        			innerObjectAnswer[i].put("answer", question.getAnswers().get(i).getAnswer());
+		        		
+	        			JSONObject [] innerObjectCompetencies = new JSONObject[question.getAnswers().get(i).getCompetencies().size()];
+	        			
+		        		for(int j = 0; j < question.getAnswers().get(i).getCompetencies().size(); j++){
+		        			innerObjectAnswer[j]=new JSONObject();
+		        			innerObjectAnswer[j].put(question.getAnswers().get(i).getCompetencies().get(j).getName(), question.getAnswers().get(i).getCompetencies().get(j).getValue());		        		
+		        		}
+		        		
+		        		jsonResultCompetencies.put(innerObjectCompetencies);		        		
 	        		}
 	        		
+	        		jsonResultAnswers.put(innerObjectAnswer);
+	        		//jsonResultAnswers.put(jsonResultCompetencies);
+	        		//jsonResultAnswers.put(jsonResultCompetencies);
 	        		
-	             	jsonResult.put(jsonObj);
 	             	
+	             	jsonObjQuestion.put("answers", jsonResultAnswers);
+	             	//jsonObjAnswer.put("competencies", jsonResultCompetencies);
+	             	
+	             	
+	             	jsonResult.put(jsonObjQuestion);
+	             	jsonResult.put(jsonObjAnswer);
+
+	        		//jsonResult.put(jsonResultAnswers);
+
 	             	return jsonResult;
 	             	
 	        		} catch (JSONException e) {
