@@ -30,6 +30,8 @@ public class REST{
 	         @Override
 	         public Object handle(Request request, Response response) {
 	        	
+	        	response.header("Access-Control-Allow-Origin", "*");
+	        	 
 	            Integer ra = Integer.parseInt(request.params(":ra"));
 	        	
 	            
@@ -40,7 +42,7 @@ public class REST{
 	         	    JSONObject jsonObj = new JSONObject();
 
 	        		jsonObj.put("name", student.getName());
-	        		jsonObj.put("lidership", student.getCompetencies().getLeadership());
+	        		jsonObj.put("leadership", student.getCompetencies().getLeadership());
 	        		jsonObj.put("communication", student.getCompetencies().getCommunication());
 	        		jsonObj.put("values", student.getCompetencies().getValues());
 	        		jsonObj.put("workGroup", student.getCompetencies().getWorkGroup());
@@ -73,6 +75,8 @@ public class REST{
 	         @Override
 	         public Object handle(Request request, Response response) {
 	        	
+	        	response.header("Access-Control-Allow-Origin", "*");
+	        	 
 	            Integer number = Integer.parseInt(request.params(":number"));
 	        	
 	            
