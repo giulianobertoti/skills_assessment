@@ -24,13 +24,14 @@ public class Test {
 		
 		controller.getStudentCompetencies();
 		controller.getQuestionByNumber();
+		controller.getStudentsbyCourseYearPeriod();
 		
 		
 	}
 	
 	public static void initializeModel(){
-		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 20161, new Competencies(9, 8, 6, 2, 4, 7, 2)));
-		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 20162, new Competencies(6, 3, 10, 4, 3, 9, 1)));
+		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 12345, 2016, 2, Course.BD, new Competencies(9, 8, 6, 2, 4, 7, 2)));
+		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, 2017, 1, Course.ADS, new Competencies(6, 3, 10, 4, 3, 9, 1)));
 	
 		List<Competency> competencies1 = new LinkedList<Competency>();
 		Competency comp1 = new Competency("leadership", 1);

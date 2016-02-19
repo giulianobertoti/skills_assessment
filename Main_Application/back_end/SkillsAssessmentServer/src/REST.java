@@ -4,6 +4,8 @@
 
 import static spark.Spark.get;
 
+import java.util.List;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,5 +110,54 @@ public class REST{
 	      });
 		
 	}
+	
+	
+	public void getStudentsbyCourseYearPeriod(){
+		
+		get(new Route("/students/:year/:period/:course") {
+	         @Override
+	         public Object handle(Request request, Response response) {
+	        	
+	        	response.header("Access-Control-Allow-Origin", "*");
+	        	 
+	        	
+	            
+	            Integer year = Integer.parseInt(request.params(":year"));
+	            Integer period = Integer.parseInt(request.params(":period"));
+	            Course course = Course.valueOf(request.params(":course").toUpperCase());
+	            
+	            try {
+	            	List<Student> students = model.searchStudentsByCourseYearPeriod(year, period, course);
+	            	
+	            	JSONArray jsonResult = new JSONArray();
+	         	    
+
+	         	    for(Student student:students){
+	         	    	JSONObject jsonObj = new JSONObject();
+	         	    	jsonObj.put("name", student.getName());
+	         	    	jsonObj.put("username", student.getUserName());
+	         	    	jsonObj.put("ra", student.getRa());
+	         	    	jsonResult.put(jsonObj);
+	         	    	
+	         	    }
+
+	             	
+	             	return jsonResult;
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+	         	    	
+	
+	     	    return null;
+	     	     
+	         }
+	         
+	      });
+
+	         
+	}
+	
 		
 }

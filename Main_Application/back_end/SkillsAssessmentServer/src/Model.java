@@ -1,4 +1,7 @@
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -55,4 +58,21 @@ public class Model{
 	}
 	
 
+	public List<Student> searchStudentsByCourseYearPeriod(int year, int period, Course course){
+		
+		List<Student> result = new LinkedList<Student>();
+		
+		Query query = students.query();
+		query.constrain(Student.class);
+	    ObjectSet<Student> allStudents = query.execute();
+		
+	    for(Student student:allStudents){
+	    	if(student.getYear()==year && student.getPeriod()==period && student.getCourse().equals(course)) result.add(student);
+	    
+	    }
+		
+		return result;
+		
+	}
+	
 }
