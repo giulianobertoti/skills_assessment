@@ -8,7 +8,6 @@ import java.util.List;
 import org.json.JSONException;
 
 
-
 public class Test {
 	
 	static Model model = new Model();
@@ -22,16 +21,19 @@ public class Test {
 		
 		REST controller = new REST(model); 
 		
+		
+		
 		controller.getStudentCompetencies();
 		controller.getQuestionByNumber();
-		controller.getStudentsbyCourseYearPeriod();
+		controller.getStudentsbyInstitutionCourseYearPeriod();
+		
 		
 		
 	}
 	
 	public static void initializeModel(){
-		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 12345, 2016, 2, Course.BD, new Competencies(9, 8, 6, 2, 4, 7, 2)));
-		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, 2017, 1, Course.ADS, new Competencies(6, 3, 10, 4, 3, 9, 1)));
+		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 12345, Institution.FATECSJC, Course.BD ,2016, 2, new Competencies(9, 8, 6, 2, 4, 7, 2)));
+		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, Institution.FATECSJC, Course.ADS, 2017, 1, new Competencies(6, 3, 10, 4, 3, 9, 1)));
 	
 		List<Competency> competencies1 = new LinkedList<Competency>();
 		Competency comp1 = new Competency("leadership", 1);

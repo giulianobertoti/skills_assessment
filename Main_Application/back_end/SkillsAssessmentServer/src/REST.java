@@ -28,10 +28,14 @@ public class REST{
 	
 	public void getStudentCompetencies(){
 		
+		
+		
 		get(new Route("/competencies/:ra") {
 	         @Override
 	         public Object handle(Request request, Response response) {
 	        	
+	        	 
+	        	 
 	        	response.header("Access-Control-Allow-Origin", "*");
 	        	 
 	            Integer ra = Integer.parseInt(request.params(":ra"));
@@ -112,22 +116,23 @@ public class REST{
 	}
 	
 	
-	public void getStudentsbyCourseYearPeriod(){
+	public void getStudentsbyInstitutionCourseYearPeriod(){
 		
-		get(new Route("/students/:year/:period/:course") {
+		get(new Route("/students/:institution/:course/:year/:period") {
 	         @Override
 	         public Object handle(Request request, Response response) {
 	        	
 	        	response.header("Access-Control-Allow-Origin", "*");
 	        	 
 	        	
-	            
-	            Integer year = Integer.parseInt(request.params(":year"));
+	        	Institution institution = Institution.valueOf(request.params(":institution").toUpperCase());
+	        	Course course = Course.valueOf(request.params(":course").toUpperCase());
+	        	Integer year = Integer.parseInt(request.params(":year"));
 	            Integer period = Integer.parseInt(request.params(":period"));
-	            Course course = Course.valueOf(request.params(":course").toUpperCase());
+	            
 	            
 	            try {
-	            	List<Student> students = model.searchStudentsByCourseYearPeriod(year, period, course);
+	            	List<Student> students = model.searchStudentsByInstitutionCourseYearPeriod(institution, course, year, period);
 	            	
 	            	JSONArray jsonResult = new JSONArray();
 	         	    

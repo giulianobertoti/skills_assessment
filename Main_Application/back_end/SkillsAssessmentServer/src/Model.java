@@ -58,7 +58,7 @@ public class Model{
 	}
 	
 
-	public List<Student> searchStudentsByCourseYearPeriod(int year, int period, Course course){
+	public List<Student> searchStudentsByInstitutionCourseYearPeriod(Institution institution, Course course, int year, int period){
 		
 		List<Student> result = new LinkedList<Student>();
 		
@@ -67,7 +67,7 @@ public class Model{
 	    ObjectSet<Student> allStudents = query.execute();
 		
 	    for(Student student:allStudents){
-	    	if(student.getYear()==year && student.getPeriod()==period && student.getCourse().equals(course)) result.add(student);
+	    	if(student.getInstitution().equals(institution) && student.getCourse().equals(course) && student.getYear()==year && student.getPeriod()==period) result.add(student);
 	    
 	    }
 		
