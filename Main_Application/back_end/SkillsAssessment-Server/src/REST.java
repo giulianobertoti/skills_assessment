@@ -26,13 +26,15 @@ public class REST{
 		this.model = store;
 	}
 	
+	
+	
 	public void getStudentCompetencies(){
 		
 		
-		
-		get(new Route("/competencies/:ra") {
-	         @Override
-	         public Object handle(Request request, Response response) {
+	
+		get("/competencies/:ra", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
 	        	
 	        	 
 	        	 
@@ -77,9 +79,9 @@ public class REST{
 	
 	public void getQuestionByNumber(){
 		
-		get(new Route("/questions/:number") {
-	         @Override
-	         public Object handle(Request request, Response response) {
+		get("/questions/:number", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
 	        	
 	        	response.header("Access-Control-Allow-Origin", "*");
 	        	 
@@ -116,14 +118,16 @@ public class REST{
 	}
 	
 	
+	
 	public void getStudentsbyInstitutionCourseYearPeriod(){
 		
-		get(new Route("/students/:institution/:course/:year/:period") {
-	         @Override
-	         public Object handle(Request request, Response response) {
+		get("/students/:institution/:course/:year/:period", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
 	        	
 	        	response.header("Access-Control-Allow-Origin", "*");
 	        	 
+	        	
 	        	
 	        	Institution institution = Institution.valueOf(request.params(":institution").toUpperCase());
 	        	Course course = Course.valueOf(request.params(":course").toUpperCase());

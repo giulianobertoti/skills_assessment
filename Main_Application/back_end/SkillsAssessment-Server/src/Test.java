@@ -1,6 +1,5 @@
 
-
-
+import spark.Spark;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +17,8 @@ public class Test {
 		
 		initializeModel();
 		
+		
+		Spark.staticFileLocation("/public");
 		
 		REST controller = new REST(model); 
 		
