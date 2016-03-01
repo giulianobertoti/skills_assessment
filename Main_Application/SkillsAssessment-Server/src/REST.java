@@ -27,6 +27,46 @@ public class REST{
 	}
 	
 	
+	public void getLogin(){
+		
+		get("/login/:username/:password", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	        	 
+	        	 
+	        	response.header("Access-Control-Allow-Origin", "*");
+	        	 
+	            
+	            
+	            try {
+	            	Student student = model.login(request.params(":username"), request.params(":password"));
+	            	
+	            	JSONArray jsonResult = new JSONArray();
+	         	    JSONObject jsonObj = new JSONObject();
+
+	        		jsonObj.put("ra", student.getRa());
+	        		
+	        		
+	             	jsonResult.put(jsonObj);
+	             	
+	             	return jsonResult;
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+	         	    	
+	
+	     	    return null;
+	     	     
+	         }
+	         
+	      });
+			
+
+	}
+	
 	
 	public void getStudentCompetencies(){
 		
@@ -75,6 +115,46 @@ public class REST{
 	      });
 
 	         
+	}
+	
+	public void getStudentsQuestionbyRA(){
+		
+		get("/user/:ra", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	        	 
+	        	 
+	        	response.header("Access-Control-Allow-Origin", "*");
+	        	 
+	        	Integer ra = Integer.parseInt(request.params(":ra"));
+	            
+	            try {
+	            	Integer questionNumber = model.searchStudentsQuestion(ra);
+	            	
+	            	JSONArray jsonResult = new JSONArray();
+	         	    JSONObject jsonObj = new JSONObject();
+
+	        		jsonObj.put("question", questionNumber);
+	        		
+	        		
+	             	jsonResult.put(jsonObj);
+	             	
+	             	return jsonResult;
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+	         	    	
+	
+	     	    return null;
+	     	     
+	         }
+	         
+	      });
+		
+		
 	}
 	
 	public void getQuestionByNumber(){

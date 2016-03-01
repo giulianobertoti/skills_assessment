@@ -11,7 +11,7 @@ public class Student {
 	private int year;
 	private int period;
 	private Competencies competencies;
-	
+	private int question = 1;
 	
 	public Student(String userName, String password, String name, int ra,
 			Institution institution, Course course, int year, int period,
@@ -119,8 +119,12 @@ public class Student {
 	}
 	
 	
+	public int getQuestion(){
+		return question;
+	}
 	
-	
-	
+	public void setQuestion(int question){
+		this.question = question;
+	}
 
 }

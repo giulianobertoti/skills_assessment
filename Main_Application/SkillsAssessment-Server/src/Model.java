@@ -21,6 +21,43 @@ public class Model{
 	}
 	
 	
+	public Student login(String username, String password){
+		
+		Query query = students.query();
+		query.constrain(Student.class);
+	    ObjectSet<Student> allStudents = query.execute();
+		
+	    
+	    for(Student student:allStudents){
+	    	if(student.getUserName().equals(username) && student.getPassword().equals(password)){
+	    		
+	    		return student;
+	    	}
+	    	
+	    }
+	    
+	    return null;
+
+	}
+	
+	public Integer searchStudentsQuestion(int ra){
+		Query query = students.query();
+		query.constrain(Student.class);
+	    ObjectSet<Student> allStudents = query.execute();
+		
+	    
+	    for(Student student:allStudents){
+	    	if(student.getRa()==ra){
+	    		
+	    		return student.getQuestion();
+	    	}
+	    	
+	    }
+	    
+	    return null;
+
+	}
+	
 	public Student searchStudentByRA(int ra){
 		
 		

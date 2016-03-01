@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+	
+    
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$('form').submit(function(e){    
+				e.preventDefault();
+				var username = $('#username').val().trim();
+				var password = $('#password').val().trim();
+				
+				$.getJSON("http://127.0.0.1:4567/login/"+username+"/"+password+"?format=json&jsoncallback=",function(data) {
+					
+					
+					alert(data[0].ra);
+					
+					window.location.href = '/question.html';
+					
+				});
+			});
+		});
+	</script>
+
+   
+  </head>
+  <body>
+  
+		<form method="post" id="form">
+          <label for="username">email</label>
+		  <label for="password">password</label>
+          <div class="input">
+            <input type="text" id="username" />
+			<input type="text" id="password" />
+            <input type="submit" class="btn" value="login" />
+          </div>        
+		</form>
+
+
+	
+  </body>
+</html>

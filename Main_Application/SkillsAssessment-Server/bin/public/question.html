@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+	
+    
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			    
+				//pegar o ra do sessionStorage do HTML5
+				
+				$.getJSON("/user/"+ra+"/",function(data) {
+					
+					
+					alert(data[0].question); //agora tenho o numero da questao
+					
+					questionNumber = data[0].question;
+					
+					$.getJSON("/questions/"+questionNumber+"",function(data) {
+					
+							//montar a questao no body
+					});
+					
+				});
+			
+		});
+	</script>
+
+   
+  </head>
+  <body>
+  
+		<p>question</p>
+
+
+	
+  </body>
+</html>

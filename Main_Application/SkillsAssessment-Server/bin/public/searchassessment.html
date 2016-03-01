@@ -13,7 +13,7 @@
 				e.preventDefault();
 				var query = $('#keyword').val().trim();
 				
-				$.getJSON("http://127.0.0.1:4567/competencies/"+query+"?format=json&jsoncallback=",function(data) {
+				$.getJSON("/competencies/"+query+"?format=json&jsoncallback=",function(data) {
 					
 					
 					var radarData = {
