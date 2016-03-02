@@ -10,21 +10,12 @@
 	<script>
 		$(document).ready(function(){
 			    
-				//pegar o ra do sessionStorage do HTML5
+				var ra = sessionStorage.getItem("ra");
 				
-				$.getJSON("/user/"+ra+"/",function(data) {
-					
-					
-					alert(data[0].question); //agora tenho o numero da questao
-					
-					questionNumber = data[0].question;
-					
-					$.getJSON("/questions/"+questionNumber+"",function(data) {
-					
-							//montar a questao no body
-					});
-					
-				});
+				$("#ra").append(ra);
+
+				
+				
 			
 		});
 	</script>
@@ -33,7 +24,9 @@
   </head>
   <body>
   
-		<p>question</p>
+		<p>Olá aluno</p>
+		<div id="ra"></div>
+
 
 
 	
