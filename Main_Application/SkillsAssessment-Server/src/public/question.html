@@ -14,7 +14,25 @@
 				
 				$("#ra").append(ra);
 
-				
+				$.getJSON("/user/"+ra+"?format=json&jsoncallback=",function(data) {
+					
+					
+					var question = data[0].question;
+					
+
+					
+					$("#questionNumber").append(question);
+					
+					
+					$.getJSON("/questions/"+question+"?format=json&jsoncallback=",function(data) {
+					
+						var title = data[0].question;
+						
+						$("#question").append(title);
+					
+					});
+					
+				});
 				
 			
 		});
@@ -26,7 +44,12 @@
   
 		<p>Olá aluno</p>
 		<div id="ra"></div>
-
+		
+		<p>Questão número</p>
+		<div id="questionNumber"></div>
+		
+		<p>Enunciado da questão</p>
+		<div id="question"></div>
 
 
 	

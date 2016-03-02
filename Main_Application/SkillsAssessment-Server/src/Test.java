@@ -74,7 +74,7 @@ public class Test {
 		Answer answersD = new Answer(4, "Interface Organica", competencies4);
 		answers.add(answersD);
 		
-		model.addQuestion(new Question(3, "https://www.youtube.com/watch?v=5t1FPSvpDko", "Qual é este tipo de Interação Humano Computador", answers));
+		model.addQuestion(new Question(1, "https://www.youtube.com/watch?v=5t1FPSvpDko", "Qual é este tipo de Interação Humano Computador", answers));
 	
 	}
 	
