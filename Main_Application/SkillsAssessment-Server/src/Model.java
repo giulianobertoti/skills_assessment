@@ -58,7 +58,7 @@ public class Model{
 
 	}
 	
-	public Student searchStudentByRA(int ra){
+	public Student searchStudentbyRA(int ra){
 		
 		
 		Query query = students.query();
@@ -110,6 +110,60 @@ public class Model{
 		
 		return result;
 		
+	}
+	
+	
+	public void recordAnswer(int ra, int questionNumber, int answerCode){
+		
+		
+		
+		Query queryStudents = students.query();
+		queryStudents.constrain(Student.class);
+	    ObjectSet<Student> allStudents = queryStudents.execute();
+	    
+	    Query queryQuestions = questions.query();
+		queryQuestions.constrain(Student.class);
+	    ObjectSet<Question> allQuestions = queryQuestions.execute();
+		
+	    for(Student student:allStudents){
+	    	if(student.getRa()==ra){
+	    		student.setQuestion(student.getQuestion()+1);
+	    		for(Question question:allQuestions){
+	    			if(question.getNumber()==questionNumber){
+	    				for(Answer answer: question.getAnswers()){
+	    					for(Competency competency:answer.getCompetencies()){
+	    						if(competency.getName().equals("leadership")){
+	    							student.getCompetencies().setLeadership(student.getCompetencies().getLeadership()+competency.getValue());
+	    						}
+	    						if(competency.getName().equals("communication")){
+	    							student.getCompetencies().setCommunication(student.getCompetencies().getCommunication()+competency.getValue());
+	    						}
+	    						if(competency.getName().equals("values")){
+	    							student.getCompetencies().setValues(student.getCompetencies().getValues()+competency.getValue());
+	    						}
+	    						if(competency.getName().equals("workGroup")){
+	    							student.getCompetencies().setWorkGroup(student.getCompetencies().getWorkGroup()+competency.getValue());
+	    						}
+	    						if(competency.getName().equals("determination")){
+	    							student.getCompetencies().setDetermination(student.getCompetencies().getDetermination()+competency.getValue());
+	    						}
+	    						if(competency.getName().equals("resilience")){
+	    							student.getCompetencies().setResilience(student.getCompetencies().getResilience()+competency.getValue());
+	    						}
+	    						if(competency.getName().equals("autonomy")){
+	    							student.getCompetencies().setAutonomy(student.getCompetencies().getAutonomy()+competency.getValue());
+	    						}
+	    						
+	    					}
+	    				}
+	    					
+	    			}
+	    		}
+	    	}
+	    	
+	    }
+		
+		//para ver se o cara chegou ao final, pega o lenght do array de questions e ve se é igual a pergunta que o user ta
 	}
 	
 }

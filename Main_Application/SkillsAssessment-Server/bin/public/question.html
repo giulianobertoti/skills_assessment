@@ -6,33 +6,56 @@
 	
     
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
+	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel=stylesheet>
 
 	<script>
 		$(document).ready(function(){
 			    
 				var ra = sessionStorage.getItem("ra");
 				
-				$("#ra").append(ra);
+				if(ra == null){
+				
+					window.location.href = '/index.html';
+				
+				} else {
+				
+					$("#ra").append(ra);
 
-				$.getJSON("/user/"+ra+"?format=json&jsoncallback=",function(data) {
+					$.getJSON("/user/"+ra+"?format=json&jsoncallback=",function(data) {
 					
 					
-					var question = data[0].question;
+						var question = data[0].question;
 					
 
 					
-					$("#questionNumber").append(question);
+						$("#questionNumber").append(question);
 					
 					
-					$.getJSON("/questions/"+question+"?format=json&jsoncallback=",function(data) {
+						$.getJSON("/questions/"+question+"?format=json&jsoncallback=",function(data) {
 					
-						var title = data[0].question;
+							var title = data[0].questsion;
 						
-						$("#question").append(title);
+							$("#mediaQuestion").attr("src", data[0].introduction);
+							
+						
+							$("#question").append(title);
+							
+							
+							
+							$("#answer1").append(data[0].answer[0].answer);
+							$("#answer2").append(data[0].answer[1].answer);
+							$("#answer3").append(data[0].answer[2].answer);
+							$("#answer4").append(data[0].answer[3].answer);
+					
+						});
 					
 					});
-					
-				});
+				
+				
+				}
+				
+				
 				
 			
 		});
@@ -48,8 +71,35 @@
 		<p>Questão número</p>
 		<div id="questionNumber"></div>
 		
+		<div class="embed-responsive embed-responsive-4by3">
+			<iframe class="embed-responsive-item" id="mediaQuestion" src=""></iframe>
+		</div>
+		
 		<p>Enunciado da questão</p>
 		<div id="question"></div>
+		
+		<div class="radio">
+			<label>
+				<input type="radio" name="optionsRadios" id="answer1" value="option1">
+				<p id="answer1"></p>
+			</label>
+		</div>
+		<div class="radio">
+			<label>
+				<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+				<p id="answer2"></p>
+			</label>
+		</div>
+		<div class="radio">
+			<label>
+			<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+			<div id="answer3"></div>
+		</label>
+		<div class="radio">
+			<label>
+			<input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
+			<div id="answer4"></div>
+		</label>
 
 
 	

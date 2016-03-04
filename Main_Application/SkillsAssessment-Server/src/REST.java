@@ -42,23 +42,43 @@ public class REST{
 	            try {
 	            	Student student = model.login(request.params(":username"), request.params(":password"));
 	            	
-	            	JSONArray jsonResult = new JSONArray();
-	         	    JSONObject jsonObj = new JSONObject();
+	            	if(student != null){
+	            		
+	            		JSONArray jsonResult = new JSONArray();
+		         	    JSONObject jsonObj = new JSONObject();
 
-	        		jsonObj.put("ra", student.getRa());
-	        		
-	        		
-	             	jsonResult.put(jsonObj);
-	             	
-	             	return jsonResult;
+		        		jsonObj.put("ra", student.getRa());
+		        		
+		        		
+		             	jsonResult.put(jsonObj);
+		             	
+		             	return jsonResult;
+	            		
+	            	} else {
+	            		
+	            		
+	            		
+	            	}
+	            	
+	            	
 	             	
 	        		} catch (JSONException e) {
 	        				
-	        			e.printStackTrace();
+	        			//e.printStackTrace();
+
 	        		}
 	         	    	
 	
-	     	    return null;
+	            JSONArray jsonResult = new JSONArray();
+         	    JSONObject jsonObj = new JSONObject();
+
+        		jsonObj.put("ra", 0);
+        		
+        		
+             	jsonResult.put(jsonObj);
+             	
+             	return jsonResult;
+	            
 	     	     
 	         }
 	         
@@ -84,7 +104,7 @@ public class REST{
 	        	
 	            
 	            try {
-	            	Student student = model.searchStudentByRA(ra);
+	            	Student student = model.searchStudentbyRA(ra);
 	            	
 	            	JSONArray jsonResult = new JSONArray();
 	         	    JSONObject jsonObj = new JSONObject();
@@ -176,6 +196,7 @@ public class REST{
 	         	    
 	         	    jsonObjQuestion.put("number", question.getNumber());
 	        		jsonObjQuestion.put("introduction", question.getIntroduction());
+	        		jsonObjQuestion.put("introductionMediaType", question.getIntroductionMediaType());
 	        		jsonObjQuestion.put("question", question.getQuestion());
 	        		jsonObjQuestion.put("answer", question.getAnswers());
 	        		
@@ -231,6 +252,51 @@ public class REST{
 	         	    }
 
 	             	
+	             	return jsonResult;
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+	         	    	
+	
+	     	    return null;
+	     	     
+	         }
+	         
+	      });
+
+	         
+	}
+	
+	
+	public void setAnswerbyLetter(){
+		
+		get("/answer/:ra/:questionNumber/:answerCode", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	        	response.header("Access-Control-Allow-Origin", "*");
+	        	 
+	        	
+	        	
+	        	Integer ra = Integer.parseInt(request.params(":ra"));
+	        	Integer questionNumber = Integer.parseInt(request.params(":questionNumber"));
+	        	Integer answerCode = Integer.parseInt(request.params(":answerCode"));
+	            
+	            
+	            
+	            try {
+	            	
+	            	model.recordAnswer(ra, questionNumber, answerCode);
+	            	
+	            	JSONArray jsonResult = new JSONArray();
+	         	    
+	         	    JSONObject jsonObj = new JSONObject();
+	         	    	
+	         	    jsonObj.put("status", "ok");
+	         	    jsonResult.put(jsonObj);
+	
 	             	return jsonResult;
 	             	
 	        		} catch (JSONException e) {

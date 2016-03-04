@@ -20,12 +20,24 @@
 				
 				$.getJSON("/login/"+username+"/"+password+"?format=json&jsoncallback=",function(data) {
 					
+					if(data[0].ra == 0){
 					
+						
 					
-					parseInt(sessionStorage.setItem("ra",data[0].ra));
+						window.location.href = '/index.html';
+						
+						
+					
+					} else {
+					
+						parseInt(sessionStorage.setItem("ra",data[0].ra));
 
 					
-					window.location.href = '/question.html';
+						window.location.href = '/question.html';
+					
+					}
+					
+					
 					
 				});
 			});
@@ -58,6 +70,7 @@
 			</div>
 		</form>
 
+		
 
 	
   </body>
