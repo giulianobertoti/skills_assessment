@@ -4,6 +4,7 @@
 
 import static spark.Spark.get;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 
@@ -181,7 +182,7 @@ public class REST{
 		
 		get("/questions/:number", new Route() {
 			@Override
-            public Object handle(final Request request, final Response response){
+            public Object handle(final Request request, final Response response) throws UnsupportedEncodingException{
 	        	
 	        	response.header("Access-Control-Allow-Origin", "*");
 	        	 
@@ -195,13 +196,15 @@ public class REST{
 	         	    JSONObject jsonObjQuestion = new JSONObject();
 	         	    
 	         	    jsonObjQuestion.put("number", question.getNumber());
-	        		jsonObjQuestion.put("introduction", question.getIntroduction());
+	        		jsonObjQuestion.put("introduction", java.net.URLDecoder.decode(question.getIntroduction(), "UTF-8"));
 	        		jsonObjQuestion.put("introductionMediaType", question.getIntroductionMediaType());
 	        		jsonObjQuestion.put("question", question.getQuestion());
 	        		jsonObjQuestion.put("answer", question.getAnswers());
 	        		
 	        		jsonResult.put(jsonObjQuestion);
 
+	        		
+	        		
 	             	return jsonResult;
 	             	
 	        		} catch (JSONException e) {

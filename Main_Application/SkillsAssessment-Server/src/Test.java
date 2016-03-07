@@ -14,7 +14,6 @@ public class Test {
 	public static void main(String[] args) throws JSONException{
 		
 		
-		
 		initializeModel();
 		
 		
@@ -74,7 +73,7 @@ public class Test {
 		Answer answersD = new Answer(4, "Interface Organica", competencies4);
 		answers.add(answersD);
 		
-		model.addQuestion(new Question(1, "https://www.youtube.com/watch?v=5t1FPSvpDko", "video", "Qual é este tipo de Interação Humano Computador", answers));
+		model.addQuestion(new Question(1, "https://www.youtube.com/embed/5t1FPSvpDko", "video", "Qual é este tipo de Interação Humano Computador", answers));
 	
 	}
 	
