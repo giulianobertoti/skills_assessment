@@ -273,7 +273,7 @@ public class REST{
 	}
 	
 	
-	public void setAnswerbyLetter(){
+	public void setAnswerbyCode(){
 		
 		get("/answer/:ra/:questionNumber/:answerCode", new Route() {
 			@Override

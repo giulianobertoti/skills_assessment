@@ -27,6 +27,7 @@ public class Test {
 		controller.getStudentCompetencies();
 		controller.getQuestionByNumber();
 		controller.getStudentsbyInstitutionCourseYearPeriod();
+		controller.setAnswerbyCode();
 		
 		
 		
@@ -36,6 +37,9 @@ public class Test {
 		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1212, Institution.FATECSJC, Course.BD ,2016, 2, new Competencies(9, 8, 6, 2, 4, 7, 2)));
 		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, Institution.FATECSJC, Course.ADS, 2017, 1, new Competencies(6, 3, 10, 4, 3, 9, 1)));
 	
+		
+		//adicionando a questao 1
+		
 		List<Competency> competencies1 = new LinkedList<Competency>();
 		Competency comp1 = new Competency("leadership", 1);
 		Competency comp2 = new Competency("workGroup", 3);
@@ -43,7 +47,7 @@ public class Test {
 		competencies1.add(comp2);
 		
 		List<Answer> answers = new LinkedList<Answer>();
-		Answer answersA = new Answer(1, "Interface GrÃ¡fica", competencies1);
+		Answer answersA = new Answer(1, "Interface Gráfica", competencies1);
 		answers.add(answersA);
 		
 		List<Competency> competencies2 = new LinkedList<Competency>();
@@ -70,11 +74,54 @@ public class Test {
 		Competency comp8 = new Competency("leadership", 0);
 		competencies4.add(comp8);
 		
-		Answer answersD = new Answer(4, "Interface Organica", competencies4);
+		Answer answersD = new Answer(4, "Interface Orgânica", competencies4);
 		answers.add(answersD);
 		
-		model.addQuestion(new Question(1, "https://www.youtube.com/embed/5t1FPSvpDko", "video", "Qual Ã© este tipo de InteraÃ§Ã£o Humano Computador", answers));
+		model.addQuestion(new Question(1, "https://www.youtube.com/embed/5t1FPSvpDko", "video", "Qual é este tipo de Interação Humano Computador", answers));
 	
+		
+		//adicionando a questao 2
+		
+		List<Competency> competencies5 = new LinkedList<Competency>();
+		Competency comp9 = new Competency("leadership", 1);
+		Competency comp10 = new Competency("workGroup", 3);
+		competencies5.add(comp9);
+		competencies5.add(comp10);
+				
+		List<Answer> answers_2 = new LinkedList<Answer>();
+		Answer answersA_2 = new Answer(1, "Acelerômetro", competencies5);
+		answers_2.add(answersA_2);
+				
+		List<Competency> competencies6 = new LinkedList<Competency>();
+		Competency comp11 = new Competency("leadership", 0);
+		Competency comp12 = new Competency("workGroup", 0);
+		competencies6.add(comp11);
+		competencies6.add(comp12);
+				
+		Answer answersB_2 = new Answer(2, "Câmera", competencies6);
+		answers_2.add(answersB_2);
+			
+		List<Competency> competencies7 = new LinkedList<Competency>();
+		Competency comp13 = new Competency("leadership", 10);
+		Competency comp14 = new Competency("workGroup", 10);
+		Competency comp15 = new Competency("communication", 10);
+		competencies7.add(comp13);
+		competencies7.add(comp14);
+		competencies7.add(comp15);
+			
+		Answer answersC_2= new Answer(3, "GPS", competencies7);
+		answers_2.add(answersC_2);
+			
+		List<Competency> competencies8 = new LinkedList<Competency>();
+		Competency comp16 = new Competency("leadership", 0);
+		competencies8.add(comp16);
+			
+		Answer answersD_2 = new Answer(4, "Touch", competencies8);
+		answers_2.add(answersD_2);
+			
+		model.addQuestion(new Question(2, "https://www.youtube.com/embed/JLQtIR_IFnQ", "video", "Qual sensor está sendo usado para esta Interação Humano Computador", answers_2));
+		
+		
 	}
 	
 }

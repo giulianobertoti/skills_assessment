@@ -27,7 +27,7 @@
 					
 						var question = data[0].question;
 					
-
+						parseInt(sessionStorage.setItem("question",data[0].question));
 					
 						$("#questionNumber").append(question);
 					
@@ -59,8 +59,37 @@
 				}
 				
 				
-				
+			$("#next").click(function() {
 			
+				var answerCode = $('#answers input:radio:checked').val();
+				
+				var questionNumber = sessionStorage.getItem("question");
+				
+				var ra = sessionStorage.getItem("ra");
+				
+				
+				var url = "/answer/"+ra+"/"+questionNumber+"/"+answerCode+"?format=json&jsoncallback=";
+				
+				
+				
+				$.getJSON(url,function(data) {
+				
+					
+				
+					window.location.reload();
+				
+				});
+			
+			});	
+			
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function(){
+		
+			
+		
 		});
 	</script>
 
@@ -92,35 +121,38 @@
 		
 			<div class="radio">
 				<label>
-					<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+					<input type="radio" name="optionsRadios" id="optionsRadios1" value="1">
 					<p id="answer1"></p>
 				</label>
 			</div>
 			
 			<div class="radio">
 				<label>
-					<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+					<input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
 					<p id="answer2"></p>
 				</label>
 			</div>
 		
 			<div class="radio">
 				<label>
-					<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+					<input type="radio" name="optionsRadios" id="optionsRadios3" value="3">
 					<p id="answer3"></p>
 				</label>
 			</div>
 			
 			<div class="radio">
 				<label>
-					<input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
+					<input type="radio" name="optionsRadios" id="optionsRadios4" value="4">
 					<p id="answer4"></p>
 				</label>
 			</div>
 		
 		</div>
 		
-		<button type="button" class="btn btn-primary col-md-offset-3">Próxima</button>
+		
+		
+		<button id="next" type="submit" class="btn btn-primary col-md-offset-3">Próxima</button>
+			
 		
 	
   </body>
