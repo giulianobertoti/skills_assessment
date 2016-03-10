@@ -113,7 +113,7 @@ public class Model{
 	}
 	
 	
-	public void recordAnswer(int ra, int questionNumber, int answerCode){
+	public int recordAnswer(int ra, int questionNumber, int answerCode){
 		
 		
 		
@@ -122,7 +122,7 @@ public class Model{
 	    ObjectSet<Student> allStudents = queryStudents.execute();
 	    
 	    Query queryQuestions = questions.query();
-		queryQuestions.constrain(Student.class);
+		queryQuestions.constrain(Question.class);
 	    ObjectSet<Question> allQuestions = queryQuestions.execute();
 		
 	    for(Student student:allStudents){
@@ -159,11 +159,29 @@ public class Model{
 	    					
 	    			}
 	    		}
+	    		
+	    		
+	    		if(allQuestions.toArray().length < student.getQuestion()){
+	    			
+	    			return 0;
+	    		} else {
+	    			
+	    			return 1; //continua
+	    		}
+	    		
 	    	}
+	    	
+	    	
 	    	
 	    }
 		
-		//para ver se o cara chegou ao final, pega o lenght do array de questions e ve se é igual a pergunta que o user ta
+		
+	    
+	    
+	    return 0;
+	    
+	    
 	}
+	
 	
 }

@@ -291,16 +291,32 @@ public class REST{
 	            
 	            try {
 	            	
-	            	model.recordAnswer(ra, questionNumber, answerCode);
+	            	int status = model.recordAnswer(ra, questionNumber, answerCode);
 	            	
-	            	JSONArray jsonResult = new JSONArray();
-	         	    
-	         	    JSONObject jsonObj = new JSONObject();
-	         	    	
-	         	    jsonObj.put("status", "ok");
-	         	    jsonResult.put(jsonObj);
-	
-	             	return jsonResult;
+	            	if(status == 1){
+	            		JSONArray jsonResult = new JSONArray();
+		         	    
+		         	    JSONObject jsonObj = new JSONObject();
+		         	    	
+		         	    jsonObj.put("status", "ok");
+		         	    jsonResult.put(jsonObj);
+		
+		             	return jsonResult;
+		             	
+	            	} else {
+	            		
+	            		JSONArray jsonResult = new JSONArray();
+		         	    
+		         	    JSONObject jsonObj = new JSONObject();
+		         	    	
+		         	    jsonObj.put("status", "fim");
+		         	    jsonResult.put(jsonObj);
+		
+		             	return jsonResult;
+	            		
+	            	}
+	            	
+	            	
 	             	
 	        		} catch (JSONException e) {
 	        				

@@ -74,9 +74,15 @@
 				
 				$.getJSON(url,function(data) {
 				
-					
+					alert(data[0].status);
 				
-					window.location.reload();
+					if(data[0].status=="ok"){
+						window.location.reload();
+					} else {
+						window.location.href = '/thankyou.html';
+					}
+				
+					
 				
 				});
 			
