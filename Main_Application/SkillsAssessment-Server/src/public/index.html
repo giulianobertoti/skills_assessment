@@ -21,12 +21,18 @@
 				$.getJSON("/login/"+username+"/"+password+"?format=json&jsoncallback=",function(data) {
 					
 					if(data[0].ra == 0){
-					
-						
-					
+
 						window.location.href = '/index.html';
 						
-						
+					} else if(data[0].completed==true){
+							
+							window.location.href = '/thankyou.html';
+
+					} else if(data[0].question==1){
+					
+						parseInt(sessionStorage.setItem("ra",data[0].ra));
+					
+						window.location.href = '/welcome.html';
 					
 					} else {
 					

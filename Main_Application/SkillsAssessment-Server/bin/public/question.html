@@ -26,6 +26,7 @@
 					
 					
 						var question = data[0].question;
+						
 					
 						parseInt(sessionStorage.setItem("question",data[0].question));
 					
@@ -35,9 +36,6 @@
 						$.getJSON("/questions/"+question+"?format=json&jsoncallback=",function(data) {
 					
 							var title = data[0].question;
-						
-							
-							
 						
 							$("#question").append(title);
 							
@@ -52,7 +50,7 @@
 							
 					
 						});
-					
+		
 					});
 				
 				
@@ -74,7 +72,7 @@
 				
 				$.getJSON(url,function(data) {
 				
-					alert(data[0].status);
+					
 				
 					if(data[0].status=="ok"){
 						window.location.reload();
@@ -91,13 +89,7 @@
 		});
 	</script>
 	
-	<script>
-		$(document).ready(function(){
-		
-			
-		
-		});
-	</script>
+	
 
    
   </head>

@@ -9,7 +9,7 @@ import com.db4o.query.Query;
 
 public class Model{
 	
-	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies.db4o");
+	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students4.db4o");
 	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions.db4o");
 	
 	public void addStudent(Student student){
@@ -40,23 +40,7 @@ public class Model{
 
 	}
 	
-	public Integer searchStudentsQuestion(int ra){
-		Query query = students.query();
-		query.constrain(Student.class);
-	    ObjectSet<Student> allStudents = query.execute();
-		
-	    
-	    for(Student student:allStudents){
-	    	if(student.getRa()==ra){
-	    		
-	    		return student.getQuestion();
-	    	}
-	    	
-	    }
-	    
-	    return null;
 
-	}
 	
 	public Student searchStudentbyRA(int ra){
 		
@@ -162,11 +146,20 @@ public class Model{
 	    		
 	    		
 	    		if(allQuestions.toArray().length < student.getQuestion()){
+	    			student.setCompleted(true);
+	    			students.store(student);
+	    			students.commit();
 	    			
-	    			return 0;
+	    			Query query = students.query();
+	    			query.constrain(Student.class);
+	    		    ObjectSet<Student> s = queryStudents.execute();
+	    		    System.out.println(s);
+	    			
+	    			
+	    			return 1;
 	    		} else {
 	    			
-	    			return 1; //continua
+	    			return 0; //continua
 	    		}
 	    		
 	    	}

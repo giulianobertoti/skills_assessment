@@ -12,6 +12,7 @@ public class Student {
 	private int period;
 	private Competencies competencies;
 	private int question = 1;
+	private boolean completed = false;
 	
 	public Student(String userName, String password, String name, int ra,
 			Institution institution, Course course, int year, int period,
@@ -127,4 +128,12 @@ public class Student {
 		this.question = question;
 	}
 
+	public boolean getCompleted(){
+		return completed;
+	}
+	
+	public void setCompleted(boolean completed){
+		this.completed = completed;
+	}
+	
 }

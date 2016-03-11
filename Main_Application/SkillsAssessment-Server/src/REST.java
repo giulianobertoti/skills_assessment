@@ -49,7 +49,8 @@ public class REST{
 		         	    JSONObject jsonObj = new JSONObject();
 
 		        		jsonObj.put("ra", student.getRa());
-		        		
+		        		jsonObj.put("completed", student.getCompleted());
+		        		jsonObj.put("question", student.getQuestion());
 		        		
 		             	jsonResult.put(jsonObj);
 		             	
@@ -151,13 +152,13 @@ public class REST{
 	        	Integer ra = Integer.parseInt(request.params(":ra"));
 	            
 	            try {
-	            	Integer questionNumber = model.searchStudentsQuestion(ra);
+	            	Student student = model.searchStudentbyRA(ra);
 	            	
 	            	JSONArray jsonResult = new JSONArray();
 	         	    JSONObject jsonObj = new JSONObject();
 
-	        		jsonObj.put("question", questionNumber);
-	        		
+	        		jsonObj.put("question", student.getQuestion());
+	        		jsonObj.put("completed", student.getCompleted());
 	        		
 	             	jsonResult.put(jsonObj);
 	             	
@@ -293,7 +294,7 @@ public class REST{
 	            	
 	            	int status = model.recordAnswer(ra, questionNumber, answerCode);
 	            	
-	            	if(status == 1){
+	            	if(status == 0){
 	            		JSONArray jsonResult = new JSONArray();
 		         	    
 		         	    JSONObject jsonObj = new JSONObject();
