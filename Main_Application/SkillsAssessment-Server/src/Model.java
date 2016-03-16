@@ -9,15 +9,34 @@ import com.db4o.query.Query;
 
 public class Model{
 	
-	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students4.db4o");
+	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students8.db4o");
 	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions.db4o");
+	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies.db4o");
 	
 	public void addStudent(Student student){
+		
+		List<Competency> studentsCompetencies = new LinkedList<Competency>();
+		
+		Query query = competencies.query();
+		query.constrain(Competency.class);
+	    ObjectSet<Competency> allCompetencies = query.execute();
+	    
+	    for(Competency competency:allCompetencies){
+	    	studentsCompetencies.add(competency);
+	    }
+		
+	    student.setCompetencies(studentsCompetencies);
+	    
+	    
 		students.store(student);
 	}
 	
 	public void addQuestion(Question question){
 		questions.store(question);
+	}
+	
+	public void addCompetency(Competency competency){
+		competencies.store(competency);
 	}
 	
 	
@@ -116,27 +135,12 @@ public class Model{
 	    			if(question.getNumber()==questionNumber){
 	    				for(Answer answer: question.getAnswers()){
 	    					for(Competency competency:answer.getCompetencies()){
-	    						if(competency.getName().equals("leadership")){
-	    							student.getCompetencies().setLeadership(student.getCompetencies().getLeadership()+competency.getValue());
+	    						for(Competency studentCompetency:student.getCompetencies()){
+	    							if(studentCompetency.getName().equals(competency.getName())){
+	    								studentCompetency.setValue(studentCompetency.getValue()+competency.getValue());
+	    							}
 	    						}
-	    						if(competency.getName().equals("communication")){
-	    							student.getCompetencies().setCommunication(student.getCompetencies().getCommunication()+competency.getValue());
-	    						}
-	    						if(competency.getName().equals("values")){
-	    							student.getCompetencies().setValues(student.getCompetencies().getValues()+competency.getValue());
-	    						}
-	    						if(competency.getName().equals("workGroup")){
-	    							student.getCompetencies().setWorkGroup(student.getCompetencies().getWorkGroup()+competency.getValue());
-	    						}
-	    						if(competency.getName().equals("determination")){
-	    							student.getCompetencies().setDetermination(student.getCompetencies().getDetermination()+competency.getValue());
-	    						}
-	    						if(competency.getName().equals("resilience")){
-	    							student.getCompetencies().setResilience(student.getCompetencies().getResilience()+competency.getValue());
-	    						}
-	    						if(competency.getName().equals("autonomy")){
-	    							student.getCompetencies().setAutonomy(student.getCompetencies().getAutonomy()+competency.getValue());
-	    						}
+	    						
 	    						
 	    					}
 	    				}

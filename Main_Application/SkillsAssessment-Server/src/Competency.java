@@ -4,7 +4,10 @@ public class Competency {
 	private String name;
 	private int value;
 	
-	
+	public Competency(String name){
+		this.name = name;
+		this.value = 0;
+	}
 	
 	public Competency(String name, int value) {
 		this.name = name;

@@ -112,13 +112,13 @@ public class REST{
 	         	    JSONObject jsonObj = new JSONObject();
 
 	        		jsonObj.put("name", student.getName());
-	        		jsonObj.put("leadership", student.getCompetencies().getLeadership());
-	        		jsonObj.put("communication", student.getCompetencies().getCommunication());
-	        		jsonObj.put("values", student.getCompetencies().getValues());
-	        		jsonObj.put("workGroup", student.getCompetencies().getWorkGroup());
-	        		jsonObj.put("determination", student.getCompetencies().getDetermination());
-	        		jsonObj.put("resilience", student.getCompetencies().getResilience());
-	        		jsonObj.put("autonomy", student.getCompetencies().getAutonomy());
+	        		
+	        		for(Competency competency:student.getCompetencies()){
+	        			jsonObj.put(competency.getName(), competency.getValue());
+	        			
+	        		}
+	        		
+	        		
 	        		
 	             	jsonResult.put(jsonObj);
 	             	

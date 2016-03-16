@@ -34,15 +34,21 @@ public class Test {
 	}
 	
 	public static void initializeModel(){
-		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1212, Institution.FATECSJC, Course.BD ,2016, 2, new Competencies(9, 8, 6, 2, 4, 7, 2)));
-		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, Institution.FATECSJC, Course.ADS, 2017, 1, new Competencies(6, 3, 10, 4, 3, 9, 1)));
+		
+		model.addCompetency(new Competency("resiliencia"));
+		model.addCompetency(new Competency("esforco"));
+		
+		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1212, Institution.FATECSJC, Course.BD ,2016, 2));
+		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, Institution.FATECSJC, Course.ADS, 2017, 1));
 	
+		
+		
 		
 		//adicionando a questao 1
 		
 		List<Competency> competencies1 = new LinkedList<Competency>();
-		Competency comp1 = new Competency("leadership", 1);
-		Competency comp2 = new Competency("workGroup", 3);
+		Competency comp1 = new Competency("resiliencia", 5);
+		Competency comp2 = new Competency("esforco", 3);
 		competencies1.add(comp1);
 		competencies1.add(comp2);
 		
@@ -93,8 +99,8 @@ public class Test {
 		answers_2.add(answersA_2);
 				
 		List<Competency> competencies6 = new LinkedList<Competency>();
-		Competency comp11 = new Competency("leadership", 0);
-		Competency comp12 = new Competency("workGroup", 0);
+		Competency comp11 = new Competency("resiliencia", 5);
+		Competency comp12 = new Competency("esforco", 3);
 		competencies6.add(comp11);
 		competencies6.add(comp12);
 				

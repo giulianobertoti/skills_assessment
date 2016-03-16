@@ -1,4 +1,5 @@
-
+import java.util.LinkedList;
+import java.util.List;
 
 public class Student {
 	
@@ -10,13 +11,12 @@ public class Student {
 	private Course course;
 	private int year;
 	private int period;
-	private Competencies competencies;
+	private List<Competency> competencies = new LinkedList<Competency>();
 	private int question = 1;
 	private boolean completed = false;
 	
 	public Student(String userName, String password, String name, int ra,
-			Institution institution, Course course, int year, int period,
-			Competencies competencies) {
+			Institution institution, Course course, int year, int period) {
 
 		this.userName = userName;
 		this.password = password;
@@ -26,7 +26,6 @@ public class Student {
 		this.course = course;
 		this.year = year;
 		this.period = period;
-		this.competencies = competencies;
 	}
 
 
@@ -110,12 +109,12 @@ public class Student {
 	}
 
 
-	public Competencies getCompetencies() {
+	public List<Competency> getCompetencies() {
 		return competencies;
 	}
 
 
-	public void setCompetencies(Competencies competencies) {
+	public void setCompetencies(List<Competency> competencies) {
 		this.competencies = competencies;
 	}
 	
