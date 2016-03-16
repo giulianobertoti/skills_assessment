@@ -9,9 +9,9 @@ import com.db4o.query.Query;
 
 public class Model{
 	
-	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students8.db4o");
+	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students10.db4o");
 	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions.db4o");
-	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies.db4o");
+	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies2.db4o");
 	
 	public void addStudent(Student student){
 		
@@ -138,6 +138,8 @@ public class Model{
 	    						for(Competency studentCompetency:student.getCompetencies()){
 	    							if(studentCompetency.getName().equals(competency.getName())){
 	    								studentCompetency.setValue(studentCompetency.getValue()+competency.getValue());
+	    								students.store(student.getCompetencies()); //to update an array in DB4O you must reference it explicitly -> Object.List -> if you reference only the Object like you do with others attributes it does not work
+	    				    			students.commit();
 	    							}
 	    						}
 	    						

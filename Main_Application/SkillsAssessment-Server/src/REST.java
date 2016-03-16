@@ -113,10 +113,9 @@ public class REST{
 
 	        		jsonObj.put("name", student.getName());
 	        		
-	        		for(Competency competency:student.getCompetencies()){
-	        			jsonObj.put(competency.getName(), competency.getValue());
-	        			
-	        		}
+	        		
+	        		jsonObj.put("competencies", student.getCompetencies());
+	        		
 	        		
 	        		
 	        		
