@@ -111,10 +111,16 @@ public class REST{
 	            	JSONArray jsonResult = new JSONArray();
 	         	    JSONObject jsonObj = new JSONObject();
 
+	         	    jsonObj.put("username", student.getUserName());
+	         	    jsonObj.put("password", student.getPassword());
 	        		jsonObj.put("name", student.getName());
-	        		
-	        		
+	        		jsonObj.put("ra", student.getRa());
+	        		jsonObj.put("institution", student.getInstitution());
+	        		jsonObj.put("course", student.getCourse());
+	        		jsonObj.put("year", student.getYear());
+	        		jsonObj.put("period", student.getPeriod());
 	        		jsonObj.put("competencies", student.getCompetencies());
+	        		jsonObj.put("question", student.getQuestion());
 	        		
 	        		
 	        		

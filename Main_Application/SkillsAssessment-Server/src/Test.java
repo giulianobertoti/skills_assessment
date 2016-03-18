@@ -39,8 +39,8 @@ public class Test {
 		model.addCompetency(new Competency("esforco"));
 		model.addCompetency(new Competency("concentracao"));
 		
-		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1212, Institution.FATECSJC, Course.BD ,2016, 2));
-		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, Institution.FATECSJC, Course.ADS, 2017, 1));
+		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1212, Institution.FATECSJC, Course.BD ,2016, 1));
+		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, Institution.FATECSJC, Course.BD, 2016, 1));
 	
 		
 		

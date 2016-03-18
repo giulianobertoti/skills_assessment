@@ -9,7 +9,7 @@ import com.db4o.query.Query;
 
 public class Model{
 	
-	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students10.db4o");
+	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students11.db4o");
 	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions.db4o");
 	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies2.db4o");
 	
