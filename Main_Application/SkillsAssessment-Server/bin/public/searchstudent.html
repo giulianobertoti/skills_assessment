@@ -13,6 +13,22 @@
 	<script>
 		$(document).ready(function(){
 		
+			$.getJSON("http://127.0.0.1:4567/institutions?format=json&jsoncallback=",function(data) {
+					var itemsInst = [];
+					
+					$.each(data, function(i){
+					
+						
+						
+						itemsInst.push("<li>" + this.institutionName + "</li>");
+						
+					});
+								
+					$("#dataInstitution").append(itemsInst);
+					
+			});
+			
+		
 			$.getJSON("http://127.0.0.1:4567/students/fatecsjc/bd/2016/1?format=json&jsoncallback=",function(data) {
 					var items = [];
 					
@@ -46,11 +62,9 @@
 				Dropdown
 				<span class="caret"></span>
 			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			<ul id="dataInstitution" class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<li><a href="#">Action</a></li>
-				<li><a href="#">Another action</a></li>
-				<li><a href="#">Something else here</a></li>
-				<li><a href="#">Separated link</a></li>
+				
 			</ul>
 		</div>
 		

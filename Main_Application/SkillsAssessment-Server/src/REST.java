@@ -239,7 +239,7 @@ public class REST{
 	        	 
 	        	
 	        	
-	        	Institution institution = Institution.valueOf(request.params(":institution").toUpperCase());
+	        	Institution institution = new Institution(request.params(":institution"));
 	        	Course course = Course.valueOf(request.params(":course").toUpperCase());
 	        	Integer year = Integer.parseInt(request.params(":year"));
 	            Integer period = Integer.parseInt(request.params(":period"));
@@ -321,6 +321,50 @@ public class REST{
 		             	return jsonResult;
 	            		
 	            	}
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+	         	    	
+	
+	     	    return null;
+	     	     
+	         }
+	         
+	      });
+
+	         
+	}
+	
+	
+	public void getAllInstitutions(){
+		
+		get("/institutions", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	        	response.header("Access-Control-Allow-Origin", "*");
+
+	        	JSONArray jsonResult = new JSONArray();
+         	    
+         	    
+	        	
+	            try {
+	            	
+	            	List<Institution> institutions = model.getAllInstitutions();
+	            	
+	            	for(Institution institution:institutions){
+	            		
+	            		JSONObject jsonObj = new JSONObject();
+	            		jsonObj.put("institutionName", institution.getInstitutionName());
+	            		jsonResult.put(jsonObj);
+	            		
+	            	}
+	            	
+	            	return jsonResult;
 	            	
 	            	
 	             	

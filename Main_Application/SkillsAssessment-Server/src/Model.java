@@ -12,6 +12,8 @@ public class Model{
 	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students11.db4o");
 	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions.db4o");
 	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies2.db4o");
+	ObjectContainer institutions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions.db4o");
+	
 	
 	public void addStudent(Student student){
 		
@@ -37,6 +39,10 @@ public class Model{
 	
 	public void addCompetency(Competency competency){
 		competencies.store(competency);
+	}
+	
+	public void addInstitution(Institution institution){
+		institutions.store(institution);
 	}
 	
 	
@@ -107,7 +113,7 @@ public class Model{
 	    ObjectSet<Student> allStudents = query.execute();
 		
 	    for(Student student:allStudents){
-	    	if(student.getInstitution().equals(institution) && student.getCourse().equals(course) && student.getYear()==year && student.getPeriod()==period) result.add(student);
+	    	if(student.getInstitution().getInstitutionName().equals(institution.getInstitutionName()) && student.getCourse().equals(course) && student.getYear()==year && student.getPeriod()==period) result.add(student);
 	    
 	    }
 		
@@ -182,5 +188,15 @@ public class Model{
 	    
 	}
 	
+	
+	public List<Institution> getAllInstitutions(){
+		
+		Query query = institutions.query();
+		query.constrain(Institution.class);
+	    List<Institution> allInstitutions = query.execute();
+	    
+	    return allInstitutions;
+		
+	}
 	
 }
