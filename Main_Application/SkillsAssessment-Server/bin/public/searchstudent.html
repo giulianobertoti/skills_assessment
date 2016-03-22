@@ -6,7 +6,7 @@
 	
     
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+	
 	
 	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel=stylesheet>
 
@@ -20,7 +20,7 @@
 					
 						
 						
-						itemsInst.push("<li>" + this.institutionName + "</li>");
+						itemsInst.push("<option>" + this.institutionName + "</option>");
 						
 					});
 								
@@ -35,12 +35,14 @@
 					$.each(data, function(i){
 					
 						var number = i + 1;
-						items.push("<tr>");
-						items.push('<th scope="row">'+ number.toString() +'</th>');
-						items.push("<td>" + this.name + "</td>");
-						items.push("<td>" + this.username + "</td>");
-						items.push("<td>" + this.ra + "</td>");
-						items.push("</tr>");
+						
+						items.push("<tr><td scope='row'>"+ number.toString() +"</td> <td>"+ this.name + "</td> <td>"+ this.username + "</td> <td>"+ this.ra + "</td> </tr>");
+						//items.push("<tr>");
+						//items.push("<td scope='row'>"+ number.toString() +"</td>");
+						//items.push("<td>" + this.name + "</td>");
+						//items.push("<td>" + this.username + "</td>");
+						//items.push("<td>" + this.ra + "</td>");
+						//items.push("</tr>");
 					});
 								
 					$("#dataRows").append(items);
@@ -57,17 +59,18 @@
   <body>
   
 		
-		<div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				Dropdown
-				<span class="caret"></span>
-			</button>
-			<ul id="dataInstitution" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li><a href="#">Action</a></li>
-				
-			</ul>
-		</div>
-		
+		<form role="form" method="post">
+            <div class="form-group">
+                <label>FATEC</label>
+                <select id="dataInstitution" class="input-large form-control">
+                    <option value="" selected="selected">Escolha a FATEC</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    
+                </select>
+            </div>
+		</form>
 		
 		<table class="table table-bordered"> 
 			<caption>Students.</caption>
