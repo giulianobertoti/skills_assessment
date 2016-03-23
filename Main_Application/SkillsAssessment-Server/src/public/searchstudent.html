@@ -29,6 +29,9 @@
 			});
 			
 			$('#dataInstitution').on('change', function(){
+				
+				
+				
 				var selected = $(this).find("option:selected").val();
 				
 				$.getJSON("http://127.0.0.1:4567/courses/"+selected+"?format=json&jsoncallback=",function(data) {
@@ -40,8 +43,12 @@
 						itemsCourse.push("<option>" + this.courseName + "</option>");
 						
 					});
-								
+							
+					$("#dataCourse").empty().append('<option>Escolha o Curso</option>');
+							
 					$("#dataCourse").append(itemsCourse);
+					
+					
 					
 				});
 				
@@ -95,9 +102,7 @@
                 <label>FATEC</label>
                 <select id="dataInstitution" class="input-large form-control">
                     <option value="" selected="selected">Escolha a FATEC</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
+                    
                     
                 </select>
             </div>

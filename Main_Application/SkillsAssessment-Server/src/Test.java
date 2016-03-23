@@ -40,7 +40,10 @@ public class Test {
 		Institution fatecsjc = new Institution("fatecsjc");
 		Institution fatecmarilia = new Institution("fatecmarilia");
 		fatecsjc.addCourse("bd");
+		fatecsjc.addCourse("ads");
+		
 		fatecmarilia.addCourse("bd");
+		fatecmarilia.addCourse("aeronautica");
 		
 		
 		model.addInstitution(fatecsjc);

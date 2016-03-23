@@ -14,6 +14,8 @@ public class Student {
 	private List<Competency> competencies = new LinkedList<Competency>();
 	private int question = 1;
 	private boolean completed = false;
+	private String psychologistComment;
+	private boolean statusComment;
 	
 	public Student(String userName, String password, String name, int ra,
 			String institution, String course, int year, int period) {
@@ -134,5 +136,29 @@ public class Student {
 	public void setCompleted(boolean completed){
 		this.completed = completed;
 	}
+
+
+	public String getPsychologistComment() {
+		return psychologistComment;
+	}
+
+
+	public void setPsychologistComment(String psychologistComment) {
+		this.psychologistComment = psychologistComment;
+	}
+
+
+	public boolean isStatusComment() {
+		return statusComment;
+	}
+
+
+	public void setStatusComment(boolean statusComment) {
+		this.statusComment = statusComment;
+	}
+	
+	
+	
+	
 	
 }
