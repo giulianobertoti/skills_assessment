@@ -1,8 +1,10 @@
+import java.util.LinkedList;
+import java.util.List;
 
 public class Institution {
 	
 	private String institutionName;
-	
+	private List<Course> courses = new LinkedList<Course>();
 	
 
 	public Institution(String name) {
@@ -21,10 +23,24 @@ public class Institution {
 		this.institutionName = institutionName;
 	}
 
+	
+	
+
+	public List<Course> getCourses() {
+		return courses;
+	}
 
 
-	
-	
-	
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
+
+
+	public void addCourse(String courseName){
+		courses.add(new Course(courseName));
+	}
+
 
 }

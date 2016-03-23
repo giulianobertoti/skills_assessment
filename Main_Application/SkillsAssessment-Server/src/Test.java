@@ -29,6 +29,7 @@ public class Test {
 		controller.getStudentsbyInstitutionCourseYearPeriod();
 		controller.setAnswerbyCode();
 		controller.getAllInstitutions();
+		controller.getCourses();
 		
 		
 		
@@ -36,15 +37,21 @@ public class Test {
 	
 	public static void initializeModel(){
 		
-		model.addInstitution(new Institution("fatecsjc"));
-		model.addInstitution(new Institution("fatecmarilia"));
+		Institution fatecsjc = new Institution("fatecsjc");
+		Institution fatecmarilia = new Institution("fatecmarilia");
+		fatecsjc.addCourse("bd");
+		fatecmarilia.addCourse("bd");
+		
+		
+		model.addInstitution(fatecsjc);
+		model.addInstitution(fatecmarilia);
 		
 		model.addCompetency(new Competency("resiliencia"));
 		model.addCompetency(new Competency("esforco"));
 		model.addCompetency(new Competency("concentracao"));
 		
-		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1212, new Institution("fatecsjc"), Course.BD ,2016, 1));
-		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, new Institution("fatecsjc"), Course.BD, 2016, 1));
+		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1212, "fatecsjc", "bd" ,2016, 1));
+		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, "fatecsjc", "bd", 2016, 1));
 	
 		
 		

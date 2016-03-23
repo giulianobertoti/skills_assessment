@@ -45,6 +45,21 @@ public class Model{
 		institutions.store(institution);
 	}
 	
+	public void addCourse(String institutionName, String courseName){
+		
+		Query query = institutions.query();
+		query.constrain(Institution.class);
+	    List<Institution> allInstitutions = query.execute();
+	    
+	    for(Institution institution:allInstitutions){
+	    	if(institution.getInstitutionName().equals(institutionName)){
+	    		institution.addCourse(courseName);
+	    		institutions.store(institution.getCourses());
+	    		institutions.commit();
+	    	}
+	    }
+		
+	}
 	
 	public Student login(String username, String password){
 		
@@ -104,7 +119,7 @@ public class Model{
 	}
 	
 
-	public List<Student> searchStudentsByInstitutionCourseYearPeriod(Institution institution, Course course, int year, int period){
+	public List<Student> searchStudentsByInstitutionCourseYearPeriod(String institution, String course, int year, int period){
 		
 		List<Student> result = new LinkedList<Student>();
 		
@@ -113,7 +128,7 @@ public class Model{
 	    ObjectSet<Student> allStudents = query.execute();
 		
 	    for(Student student:allStudents){
-	    	if(student.getInstitution().getInstitutionName().equals(institution.getInstitutionName()) && student.getCourse().equals(course) && student.getYear()==year && student.getPeriod()==period) result.add(student);
+	    	if(student.getInstitution().equals(institution) && student.getCourse().equals(course) && student.getYear()==year && student.getPeriod()==period) result.add(student);
 	    
 	    }
 		
@@ -197,6 +212,22 @@ public class Model{
 	    
 	    return allInstitutions;
 		
+	}
+	
+	public List<Course> getCourses(String institutionName){
+		
+		Query query = institutions.query();
+		query.constrain(Institution.class);
+	    List<Institution> allInstitutions = query.execute();
+	    
+	    for(Institution institution:allInstitutions){
+	    	if(institution.getInstitutionName().equals(institutionName)){
+	    		return institution.getCourses();
+	    	}
+	    }
+	    
+	    return null;
+	    
 	}
 	
 }

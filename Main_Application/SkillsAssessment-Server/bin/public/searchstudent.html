@@ -28,6 +28,26 @@
 					
 			});
 			
+			$('#dataInstitution').on('change', function(){
+				var selected = $(this).find("option:selected").val();
+				
+				$.getJSON("http://127.0.0.1:4567/courses/"+selected+"?format=json&jsoncallback=",function(data) {
+					var itemsCourse = [];
+					
+					$.each(data, function(i){
+					
+					
+						itemsCourse.push("<option>" + this.courseName + "</option>");
+						
+					});
+								
+					$("#dataCourse").append(itemsCourse);
+					
+				});
+				
+				
+			});
+			
 		
 			$.getJSON("http://127.0.0.1:4567/students/fatecsjc/bd/2016/1?format=json&jsoncallback=",function(data) {
 					var items = [];
@@ -67,6 +87,41 @@
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
+                    
+                </select>
+            </div>
+		</form>
+		
+		<form role="form" method="post">
+            <div class="form-group">
+                <label>Curso</label>
+                <select id="dataCourse" class="input-large form-control">
+                    <option value="" selected="selected">Escolha o Curso</option>
+      
+                </select>
+            </div>
+		</form>
+		
+		<form role="form" method="post">
+            <div class="form-group">
+                <label>Ano</label>
+                <select id="dataYear" class="input-large form-control">
+                    <option value="" selected="selected">Escolha o ano</option>
+                    <option value="">2016</option>
+                    <option value="">2017</option>
+                    <option value="">2018</option>
+                    
+                </select>
+            </div>
+		</form>
+		
+		<form role="form" method="post">
+            <div class="form-group">
+                <label>Periodo</label>
+                <select id="dataPeriod" class="input-large form-control">
+                    <option value="" selected="selected">Escolha o periodo</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
                     
                 </select>
             </div>

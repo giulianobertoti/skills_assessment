@@ -7,8 +7,8 @@ public class Student {
 	private String password;
 	private String name;
 	private int ra;
-	private Institution institution;
-	private Course course;
+	private String institution;
+	private String course;
 	private int year;
 	private int period;
 	private List<Competency> competencies = new LinkedList<Competency>();
@@ -16,7 +16,7 @@ public class Student {
 	private boolean completed = false;
 	
 	public Student(String userName, String password, String name, int ra,
-			Institution institution, Course course, int year, int period) {
+			String institution, String course, int year, int period) {
 
 		this.userName = userName;
 		this.password = password;
@@ -69,22 +69,22 @@ public class Student {
 	}
 
 
-	public Institution getInstitution() {
+	public String getInstitution() {
 		return institution;
 	}
 
 
-	public void setInstitution(Institution institution) {
+	public void setInstitution(String institution) {
 		this.institution = institution;
 	}
 
 
-	public Course getCourse() {
+	public String getCourse() {
 		return course;
 	}
 
 
-	public void setCourse(Course course) {
+	public void setCourse(String course) {
 		this.course = course;
 	}
 
