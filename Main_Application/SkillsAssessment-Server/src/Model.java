@@ -9,7 +9,7 @@ import com.db4o.query.Query;
 
 public class Model{
 	
-	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students11.db4o");
+	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students13.db4o");
 	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions.db4o");
 	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies2.db4o");
 	ObjectContainer institutions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions.db4o");
@@ -17,20 +17,36 @@ public class Model{
 	
 	public void addStudent(Student student){
 		
-		List<Competency> studentsCompetencies = new LinkedList<Competency>();
+		if(isUserAvailable(student.getUserName())){
+			List<Competency> studentsCompetencies = new LinkedList<Competency>();
+			
+			Query query = competencies.query();
+			query.constrain(Competency.class);
+		    ObjectSet<Competency> allCompetencies = query.execute();
+		    
+		    for(Competency competency:allCompetencies){
+		    	studentsCompetencies.add(competency);
+		    }
+			
+		    student.setCompetencies(studentsCompetencies);
+		    
+		    
+			students.store(student);
+		}
 		
-		Query query = competencies.query();
-		query.constrain(Competency.class);
-	    ObjectSet<Competency> allCompetencies = query.execute();
+		
+	}
+	
+	public boolean isUserAvailable(String username){
+		Query query = students.query();
+		query.constrain(Student.class);
+	    ObjectSet<Student> allStudents = query.execute();
 	    
-	    for(Competency competency:allCompetencies){
-	    	studentsCompetencies.add(competency);
+	    for(Student student:allStudents){
+	    	if(student.getUserName().equals(username)) return false;
 	    }
-		
-	    student.setCompetencies(studentsCompetencies);
 	    
-	    
-		students.store(student);
+	    return true;
 	}
 	
 	public void addQuestion(Question question){
@@ -177,10 +193,7 @@ public class Model{
 	    			students.store(student);
 	    			students.commit();
 	    			
-	    			Query query = students.query();
-	    			query.constrain(Student.class);
-	    		    ObjectSet<Student> s = queryStudents.execute();
-	    		    System.out.println(s);
+	    			
 	    			
 	    			
 	    			return 1;

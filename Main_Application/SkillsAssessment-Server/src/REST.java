@@ -111,19 +111,19 @@ public class REST{
 	            	JSONArray jsonResult = new JSONArray();
 	         	    JSONObject jsonObj = new JSONObject();
 
-	         	    jsonObj.put("username", student.getUserName());
-	         	    jsonObj.put("password", student.getPassword());
+	         	    //jsonObj.put("userName", student.getUserName());
+	         	    //jsonObj.put("password", student.getPassword());
 	        		jsonObj.put("name", student.getName());
 	        		jsonObj.put("ra", student.getRa());
-	        		jsonObj.put("institution", student.getInstitution());
-	        		jsonObj.put("course", student.getCourse());
-	        		jsonObj.put("year", student.getYear());
-	        		jsonObj.put("period", student.getPeriod());
+	        		//jsonObj.put("institution", student.getInstitution());
+	        		//jsonObj.put("course", student.getCourse());
+	        		//jsonObj.put("year", student.getYear());
+	        		//jsonObj.put("period", student.getPeriod());
 	        		jsonObj.put("competencies", student.getCompetencies());
-	        		jsonObj.put("question", student.getQuestion());
-	        		
-	        		
-	        		
+	        		//jsonObj.put("question", student.getQuestion());
+	        		//jsonObj.put("completed", student.getCompleted());
+	        		//jsonObj.put("psychologistComment", student.getPsychologistComment());
+	        		//jsonObj.put("statusComment", student.getStatusComment());
 	        		
 	             	jsonResult.put(jsonObj);
 	             	
@@ -256,6 +256,13 @@ public class REST{
 	         	    	jsonObj.put("name", student.getName());
 	         	    	jsonObj.put("username", student.getUserName());
 	         	    	jsonObj.put("ra", student.getRa());
+	         	    	if(student.getCompleted()==false){
+	         	    		jsonObj.put("status", 1);
+	         	    	} else if(student.getCompleted()==true && student.getStatusComment()==false){
+	         	    		jsonObj.put("status", 2);
+	         	    	} else {
+	         	    		jsonObj.put("status", 3);
+	         	    	}
 	         	    	jsonResult.put(jsonObj);
 	         	    	
 	         	    }

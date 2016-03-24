@@ -14,8 +14,8 @@ public class Student {
 	private List<Competency> competencies = new LinkedList<Competency>();
 	private int question = 1;
 	private boolean completed = false;
-	private String psychologistComment;
-	private boolean statusComment;
+	private String psychologistComment = "";
+	private boolean statusComment = false;
 	
 	public Student(String userName, String password, String name, int ra,
 			String institution, String course, int year, int period) {
@@ -148,7 +148,7 @@ public class Student {
 	}
 
 
-	public boolean isStatusComment() {
+	public boolean getStatusComment() {
 		return statusComment;
 	}
 
