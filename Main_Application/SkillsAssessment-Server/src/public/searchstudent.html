@@ -6,7 +6,7 @@
 	
     
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+	
 	
 	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel=stylesheet>
 
@@ -77,7 +77,7 @@
 						if(this.status == 1){
 							status.push("<p class='text-danger'>O aluno ainda não terminou o questionário</p>");
 						} else if (this.status == 2){
-							status.push("<a href='/psychologistcomment.html?"+this.ra+"'>Avaliar aluno</a>")
+							status.push("<a class='btn btn-info' role='button' href='/psychologistcomment.html?"+this.ra+"'>Avaliar aluno</a>")
 						} else {
 							status.push("<p class='text-sucess'>Avaliação do aluno já realizada</p>")
 						}
