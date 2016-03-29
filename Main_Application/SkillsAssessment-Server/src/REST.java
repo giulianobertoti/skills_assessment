@@ -3,6 +3,8 @@
 
 
 import static spark.Spark.get;
+import static spark.Spark.post;
+
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -433,6 +435,46 @@ public class REST{
 	         }
 	         
 	      });
+
+	}
+	
+	
+	public void setComments(){
+			
+			post("/comment/", new Route() {
+				@Override
+	            public Object handle(final Request request, final Response response){
+		        	
+		        	response.header("Access-Control-Allow-Origin", "*");
+
+		        	
+		        	
+		        	
+		        	JSONObject json = new JSONObject(request.body());
+		        	
+		        	String comment = json.getString("comment");
+		        	
+		        	int ra = Integer.parseInt(json.getString("ra"));
+		        	
+	         	    
+	         	   try {
+		            	
+		            	model.setComment(ra, comment);;
+		            	
+		            	
+		            	
+		            	
+		             	
+		        		} catch (JSONException e) {
+		        				
+		        			e.printStackTrace();
+		        		}
+	         	    
+	         	    
+		        	return null;
+		        	
+			}
+			});     
 
 	         
 	}

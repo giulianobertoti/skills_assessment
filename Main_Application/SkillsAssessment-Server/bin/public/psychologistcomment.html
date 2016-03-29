@@ -42,7 +42,18 @@
 					new Chart(ctx2).Radar(radarData,options);
 					
 				});
-			
+				
+				$("#send").click(function() {
+					
+					var comment = $("#comment").val();  
+					
+					
+					$.post("/comment/", JSON.stringify({'ra': ra, 'comment': comment}), function(result){
+						
+					});
+				
+				});
+				
 		});
 	</script>
 
@@ -59,7 +70,7 @@
 			<textarea class="form-control" rows="5" id="comment"></textarea>
 		</div>
 	
-		<button id="next" type="submit" class="btn btn-primary col-md-offset-5">Enviar Comentários</button>
+		<button id="send" type="submit" class="btn btn-primary col-md-offset-5">Enviar Comentários</button>
 	
   </body>
 </html>

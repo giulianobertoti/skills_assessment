@@ -243,4 +243,24 @@ public class Model{
 	    
 	}
 	
+	public void setComment(int ra, String comment){
+		
+		
+		Query query = students.query();
+		query.constrain(Student.class);
+	    ObjectSet<Student> allStudents = query.execute();
+		
+	    for(Student student:allStudents){
+	    	if(student.getRa()==ra){
+	    		student.setPsychologistComment(comment);
+	    		student.setStatusComment(true);
+	    		students.store(student);
+	    		students.commit();
+	    	}
+	    	
+	    }
+	    
+		
+	}
+	
 }

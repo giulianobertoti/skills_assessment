@@ -30,6 +30,7 @@ public class Test {
 		controller.setAnswerbyCode();
 		controller.getAllInstitutions();
 		controller.getCourses();
+		controller.setComments();
 		
 		
 		
