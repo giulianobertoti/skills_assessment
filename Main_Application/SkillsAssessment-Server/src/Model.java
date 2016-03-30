@@ -9,7 +9,7 @@ import com.db4o.query.Query;
 
 public class Model{
 	
-	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students13.db4o");
+	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students21.db4o");
 	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions.db4o");
 	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies2.db4o");
 	ObjectContainer institutions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions.db4o");
@@ -243,7 +243,7 @@ public class Model{
 	    
 	}
 	
-	public void setComment(int ra, String comment){
+	public boolean setComment(int ra, String comment){
 		
 		
 		Query query = students.query();
@@ -256,11 +256,12 @@ public class Model{
 	    		student.setStatusComment(true);
 	    		students.store(student);
 	    		students.commit();
+	    		return true;
 	    	}
 	    	
 	    }
 	    
-		
+		return false;
 	}
 	
 }

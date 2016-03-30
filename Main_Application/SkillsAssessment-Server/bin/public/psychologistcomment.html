@@ -48,9 +48,17 @@
 					var comment = $("#comment").val();  
 					
 					
-					$.post("/comment/", JSON.stringify({'ra': ra, 'comment': comment}), function(result){
+					$.post("/comment/?format=json&jsoncallback=", JSON.stringify({'ra': ra, 'comment': comment}), function(data){
 						
-					});
+						
+						if(data[0].status == 1){
+							window.location.href = '/statuscomment.html?success';
+						} else {
+							window.location.href = '/statuscomment.html?error';
+						}
+						
+						
+					}, "json");
 				
 				});
 				

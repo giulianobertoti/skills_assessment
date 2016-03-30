@@ -445,23 +445,42 @@ public class REST{
 				@Override
 	            public Object handle(final Request request, final Response response){
 		        	
-		        	response.header("Access-Control-Allow-Origin", "*");
+		           response.header("Access-Control-Allow-Origin", "*");
 
 		        	
 		        	
 		        	
-		        	JSONObject json = new JSONObject(request.body());
+		           JSONObject json = new JSONObject(request.body());
 		        	
-		        	String comment = json.getString("comment");
+		           String comment = json.getString("comment");
 		        	
-		        	int ra = Integer.parseInt(json.getString("ra"));
+		           int ra = Integer.parseInt(json.getString("ra"));
 		        	
+		           
 	         	    
 	         	   try {
 		            	
-		            	model.setComment(ra, comment);;
+		            	boolean status = model.setComment(ra, comment);;
 		            	
 		            	
+		            	
+		            	if(status==true){
+		            		
+		            		
+		            		
+		            		JSONArray jsonResult = new JSONArray();
+		 	         	    JSONObject jsonObj = new JSONObject();
+		     
+			        		jsonObj.put("status", 1);
+			        		
+			        		
+			             	jsonResult.put(jsonObj);
+			             	
+			             	
+			             	
+			             	return jsonResult;
+		            		
+		            	}
 		            	
 		            	
 		             	
@@ -470,10 +489,19 @@ public class REST{
 		        			e.printStackTrace();
 		        		}
 	         	    
-	         	    
-		        	return null;
+	         	    JSONArray jsonResult = new JSONArray();
+	         	    JSONObject jsonObj = new JSONObject();
+	         	   	
+	         	    jsonObj.put("status", 0);
+	        		
+	        		
+	             	jsonResult.put(jsonObj);
+	             	
+	             	return jsonResult;
+	         	   
+	         	   
 		        	
-			}
+			   }
 			});     
 
 	         
