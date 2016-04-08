@@ -32,6 +32,7 @@ public class Test {
 		controller.getCourses();
 		controller.setComments();
 		controller.getAllCompetencies();
+		controller.setQuestion();
 		
 		
 		

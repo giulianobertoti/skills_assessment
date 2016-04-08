@@ -22,7 +22,7 @@
 					
 						
 						
-						itemsCompetencies.push('<div class="col-md-2"><label class="col-md-1 control-label">'+this.competency+'</label><input class="col-md-1 form-control" type="text" id="'+this.competency+(i+1)+'" placeholder="0 à 10"></div>');
+						itemsCompetencies.push('<input class="col-md-1 form-control" type="text" placeholder="'+this.competency+'"></div>');
 						
 					});
 								
@@ -31,6 +31,49 @@
 					$("#competencies3").append(itemsCompetencies);
 					$("#competencies4").append(itemsCompetencies);
 			});
+			
+			
+			$("#sendQuestion").click(function() {
+			
+				var question = $('#question').val();
+				var introduction = $('#introduction').val();
+				var introductionMediaType = $('#introductionMediaType input:radio:checked').val();
+				
+				var answer1text = $('#answer1text').val();
+				
+				var competencies1 = [];
+				
+				$('#competencies1').children('input').each(function () {
+					var name = $(this).attr("placeholder");
+					var value = this.value;
+					competencies1.push({"name": name, "value": value});
+				});
+				
+				var answer1 = {"code":1,"answer":answer1text,"competencies":competencies1};
+				
+				//var str = JSON.stringify(answer1);
+				//alert(str);
+				
+				
+				
+				var url = JSON.stringify({"question":question,"answer":[answer1, answer2, answer3, answer4],"introduction":introduction,"introductionMediaType":introductionMediaType});
+				
+				alert(url);
+				
+				$.post("/question/?format=json&jsoncallback=", url, function(data){
+						
+						
+						if(data[0].status == 1){
+							window.location.href = '/statusquestion.html?success';
+						} else {
+							window.location.href = '/statusquestion.html?error';
+						}
+						
+						
+					}, "json");
+			
+			});
+			
 		});
 	</script>
 
@@ -47,7 +90,7 @@
 		<div class="form-group form-group">
 			<label class="col-md-4 control-label">URL do Video ou Audio da Introdução da Pergunta</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" id="formGroupInputLarge" placeholder="URL do Video ou Audio">
+				<input class="form-control" type="text" id="introduction" placeholder="URL do Video ou Audio">
 			</div>
 			<label class="col-md-4 control-label">ex: https://www.youtube.com/embed/5t1FPSvpDko</label>
 		</div>
@@ -55,12 +98,12 @@
 		<!-- Tipo de Mídia da Pergunta -->
 		<div class="form-group form-group">
 			<label class="col-md-4 control-label">Selecione o tipo de mídia da Introdução da Pergunta</label>
-			<div class="col-md-4">
+			<div id="introductionMediaType" class="col-md-4">
 				<label class="radio-inline">
-					<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Video
+					<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="video"> Video
 				</label>
 				<label class="radio-inline">
-					<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Audio
+					<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="audio"> Audio
 				</label>
 			</div>
 			<label class="col-md-4 control-label">ex: Video</label>
@@ -71,7 +114,7 @@
 		<div class="form-group form-group">
 			<label class="col-md-4 control-label">Texto da Pergunta</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" id="formGroupInputLarge" placeholder="URL do Video ou Audio">
+				<input class="form-control" type="text" id="question" placeholder="URL do Video ou Audio">
 			</div>
 			<label class="col-md-4 control-label">ex: O que você faria?</label>
 		</div>
@@ -81,7 +124,7 @@
 		<div class="form-group form-group">
 			<label class="col-md-4 control-label">Resposta 1</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" id="answer1" placeholder="Texto da Resposta 1">
+				<input class="form-control" type="text" id="answer1text" placeholder="Texto da Resposta 1">
 			</div>
 			<label class="col-md-4 control-label">ex: Eu iria embora</label>
 		</div>
@@ -99,7 +142,7 @@
 		<div class="form-group form-group">
 			<label class="col-md-4 control-label">Resposta 2</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" id="answer2" placeholder="Texto da Resposta 2">
+				<input class="form-control" type="text" id="answer2text" placeholder="Texto da Resposta 2">
 			</div>
 			<label class="col-md-4 control-label">ex: Eu iria embora</label>
 		</div>
@@ -116,7 +159,7 @@
 		<div class="form-group form-group">
 			<label class="col-md-4 control-label">Resposta 3</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" id="answer3" placeholder="Texto da Resposta 3">
+				<input class="form-control" type="text" id="answer3text" placeholder="Texto da Resposta 3">
 			</div>
 			<label class="col-md-4 control-label">ex: Eu iria embora</label>
 		</div>
@@ -134,7 +177,7 @@
 		<div class="form-group form-group">
 			<label class="col-md-4 control-label">Resposta 4</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" id="answer4" placeholder="Texto da Resposta 4">
+				<input class="form-control" type="text" id="answer4text" placeholder="Texto da Resposta 4">
 			</div>
 			<label class="col-md-4 control-label">ex: Eu iria embora</label>
 		</div>
@@ -148,7 +191,7 @@
   
 	</form>
 	
-	<button id="next" type="submit" class="btn btn-primary col-md-offset-5">Cadastrar Pergunta</button>
+	<button id="sendQuestion" type="submit" class="btn btn-primary col-md-offset-5">Cadastrar Pergunta</button>
 		
 
 	

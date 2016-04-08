@@ -51,10 +51,12 @@ public class Model{
 	
 	public void addQuestion(Question question){
 		
+		Query query = questions.query();
+		query.constrain(Question.class);
+	    List<Question> allQuestions = query.execute();
+	    
+	    question.setNumber(allQuestions.size()+1);
 		
-		//receber a question com o numero como 0
-		//contar o size do array de question
-		// question.setNumber(n+1)
 		
 		questions.store(question);
 	}

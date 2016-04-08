@@ -552,5 +552,73 @@ public class REST{
 	}
 	
 	
+	public void setQuestion(){
+		
+		post("/question/", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	           response.header("Access-Control-Allow-Origin", "*");
+
+	        	
+	        	
+	        	
+	           JSONObject json = new JSONObject(request.body());
+	        	
+	           String comment = json.getString("comment");
+	        	
+	           int ra = Integer.parseInt(json.getString("ra"));
+	        	
+	           
+         	    
+         	   try {
+	            	
+	            	boolean status = model.setComment(ra, comment);;
+	            	
+	            	
+	            	
+	            	if(status==true){
+	            		
+	            		
+	            		
+	            		JSONArray jsonResult = new JSONArray();
+	 	         	    JSONObject jsonObj = new JSONObject();
+	     
+		        		jsonObj.put("status", 1);
+		        		
+		        		
+		             	jsonResult.put(jsonObj);
+		             	
+		             	
+		             	
+		             	return jsonResult;
+	            		
+	            	}
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+         	    
+         	    JSONArray jsonResult = new JSONArray();
+         	    JSONObject jsonObj = new JSONObject();
+         	   	
+         	    jsonObj.put("status", 0);
+        		
+        		
+             	jsonResult.put(jsonObj);
+             	
+             	return jsonResult;
+         	   
+         	   
+	        	
+		   }
+		});     
+
+         
+}
+	
 		
 }
