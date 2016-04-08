@@ -565,19 +565,15 @@ public class REST{
 	        	
 	           JSONObject json = new JSONObject(request.body());
 	        	
-	           String comment = json.getString("comment");
+	           String question = json.getString("question");
 	        	
-	           int ra = Integer.parseInt(json.getString("ra"));
+	           //int value1 = Integer.parseInt(json.getJSONArray("answer").get(0));
 	        	
 	           
          	    
          	   try {
 	            	
-	            	boolean status = model.setComment(ra, comment);;
 	            	
-	            	
-	            	
-	            	if(status==true){
 	            		
 	            		
 	            		
@@ -593,7 +589,7 @@ public class REST{
 		             	
 		             	return jsonResult;
 	            		
-	            	}
+	            	
 	            	
 	            	
 	             	

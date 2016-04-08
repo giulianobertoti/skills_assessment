@@ -39,6 +39,8 @@
 				var introduction = $('#introduction').val();
 				var introductionMediaType = $('#introductionMediaType input:radio:checked').val();
 				
+				//answer1
+				
 				var answer1text = $('#answer1text').val();
 				
 				var competencies1 = [];
@@ -51,9 +53,51 @@
 				
 				var answer1 = {"code":1,"answer":answer1text,"competencies":competencies1};
 				
-				var str = JSON.stringify(answer1);
+				//var str = JSON.stringify(answer1);
+				//alert(str);
 				
-				alert(str);
+				//answer2
+				
+				var answer2text = $('#answer2text').val();
+				
+				var competencies2 = [];
+				
+				$('#competencies2').children('input').each(function () {
+					var name = $(this).attr("placeholder");
+					var value = this.value;
+					competencies2.push({"name": name, "value": value});
+				});
+				
+				var answer2 = {"code":2,"answer":answer2text,"competencies":competencies2};
+				
+				
+				//answer3
+				
+				var answer3text = $('#answer3text').val();
+				
+				var competencies3 = [];
+				
+				$('#competencies3').children('input').each(function () {
+					var name = $(this).attr("placeholder");
+					var value = this.value;
+					competencies3.push({"name": name, "value": value});
+				});
+				
+				var answer3 = {"code":3,"answer":answer3text,"competencies":competencies3};
+				
+				//answer4
+				
+				var answer4text = $('#answer4text').val();
+				
+				var competencies4 = [];
+				
+				$('#competencies4').children('input').each(function () {
+					var name = $(this).attr("placeholder");
+					var value = this.value;
+					competencies4.push({"name": name, "value": value});
+				});
+				
+				var answer4 = {"code":4,"answer":answer2text,"competencies":competencies4};
 				
 				var url = JSON.stringify({"question":question,"answer":[answer1, answer2, answer3, answer4],"introduction":introduction,"introductionMediaType":introductionMediaType});
 				
