@@ -31,6 +31,7 @@ public class Test {
 		controller.getAllInstitutions();
 		controller.getCourses();
 		controller.setComments();
+		controller.getAllCompetencies();
 		
 		
 		
@@ -54,9 +55,9 @@ public class Test {
 		model.addCompetency(new Competency("esforco"));
 		model.addCompetency(new Competency("concentracao"));
 		
-		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1212, "fatecsjc", "bd" ,2016, 1));
-		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 54321, "fatecsjc", "bd", 2016, 1));
-	
+		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1111, "fatecsjc", "bd" ,2016, 1));
+		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 2222, "fatecsjc", "bd", 2016, 1));
+		model.addStudent(new Student("giuliano@gmail.com", "12345", "Giuliano", 3333, "fatecsjc", "bd", 2016, 1));
 		
 		
 		

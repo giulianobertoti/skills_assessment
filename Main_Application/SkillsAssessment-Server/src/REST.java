@@ -507,5 +507,50 @@ public class REST{
 	         
 	}
 	
+	
+	public void getAllCompetencies(){
+		
+		get("/competencies", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	        	response.header("Access-Control-Allow-Origin", "*");
+
+	        	JSONArray jsonResult = new JSONArray();
+         	    
+         	    
+	        	
+	            try {
+	            	
+	            	List<Competency> competencies = model.getAllCompetencies();
+	            	
+	            	for(Competency competency:competencies){
+	            		
+	            		JSONObject jsonObj = new JSONObject();
+	            		jsonObj.put("competency", competency.getName());
+	            		jsonResult.put(jsonObj);
+	            		
+	            	}
+	            	
+	            	return jsonResult;
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+	         	    	
+	
+	     	    return null;
+	     	     
+	         }
+	         
+	      });
+
+	         
+	}
+	
+	
 		
 }
