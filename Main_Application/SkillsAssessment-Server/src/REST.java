@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 
 import spark.Request;
 import spark.Response;
@@ -560,20 +561,18 @@ public class REST{
 	        	
 	           response.header("Access-Control-Allow-Origin", "*");
 
+	           Gson gson = new Gson();
+	           
+	           String json = request.body();
 	        	
-	        	
-	        	
-	           JSONObject json = new JSONObject(request.body());
-	        	
-	           String question = json.getString("question");
-	        	
-	           //int value1 = Integer.parseInt(json.getJSONArray("answer").get(0));
-	        	
+	           Question question = gson.fromJson(json, Question.class);
+	           
+	           
 	           
          	    
          	   try {
 	            	
-	            	
+	            		model.addQuestion(question);
 	            		
 	            		
 	            		
