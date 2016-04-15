@@ -10,7 +10,7 @@ import com.db4o.query.Query;
 public class Model{
 	
 	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students22.db4o");
-	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions.db4o");
+	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions2.db4o");
 	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies2.db4o");
 	ObjectContainer institutions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions.db4o");
 	
@@ -282,6 +282,37 @@ public class Model{
 
 		return allCompetencies;
     
+	}
+	
+	public List<Question> getAllQuestions(){
+		
+		Query query = questions.query();
+		//query.constrain(Question.class);
+		query.descend("number").orderAscending();
+		List<Question> allQuestions = query.execute();
+
+		return allQuestions;
+    
+	}
+	
+	public void deleteQuestion(int number){
+		Query query = questions.query();
+		query.constrain(Question.class);
+		List<Question> allQuestions = query.execute();
+		
+		for(Question question:allQuestions){
+			if(question.getNumber()==number){
+				questions.delete(question);
+				questions.commit();
+				for(Question q:allQuestions){
+					if(q.getNumber()>number){
+						q.setNumber(q.getNumber()-1);
+						questions.store(q);
+						questions.commit();
+					}
+				}
+			}
+		}
 	}
 	
 }

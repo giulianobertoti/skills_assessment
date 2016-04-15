@@ -613,7 +613,53 @@ public class REST{
 		});     
 
          
-}
+    }
+	
+	public void getAllQuestions(){
+		
+		
+		
+		get("/questions", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	        	response.header("Access-Control-Allow-Origin", "*");
+
+	        	JSONArray jsonResult = new JSONArray();
+         	    
+         	    
+	        	
+	            try {
+	            	
+	            	List<Question> questions = model.getAllQuestions();
+	            	
+	            	for(Question question:questions){
+	            		
+	            		JSONObject jsonObj = new JSONObject();
+	            		jsonObj.put("number", question.getNumber());
+	            		jsonObj.put("question", question.getQuestion());
+	            		jsonResult.put(jsonObj);
+	            		
+	            	}
+	            	
+	            	return jsonResult;
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+	         	    	
+	
+	     	    return null;
+	     	     
+	         }
+	         
+	      });
+		
+		
+	}
 	
 		
 }

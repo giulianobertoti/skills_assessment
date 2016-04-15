@@ -33,6 +33,7 @@ public class Test {
 		controller.setComments();
 		controller.getAllCompetencies();
 		controller.setQuestion();
+		controller.getAllQuestions();
 		
 		
 		
@@ -101,7 +102,7 @@ public class Test {
 		Answer answersD = new Answer(4, "Interface Orgânica", competencies4);
 		answers.add(answersD);
 		
-		model.addQuestion(new Question(1, "https://www.youtube.com/embed/5t1FPSvpDko", "video", "Qual é este tipo de Interação Humano Computador", answers));
+		model.addQuestion(new Question(2, "https://www.youtube.com/embed/5t1FPSvpDko", "video", "Qual é este tipo de Interação Humano Computador", answers));
 	
 		
 		//adicionando a questao 2
@@ -143,7 +144,7 @@ public class Test {
 		Answer answersD_2 = new Answer(4, "Touch", competencies8);
 		answers_2.add(answersD_2);
 			
-		model.addQuestion(new Question(2, "https://www.youtube.com/embed/JLQtIR_IFnQ", "video", "Qual sensor está sendo usado para esta Interação Humano Computador", answers_2));
+		model.addQuestion(new Question(1, "https://www.youtube.com/embed/JLQtIR_IFnQ", "video", "Qual sensor está sendo usado para esta Interação Humano Computador", answers_2));
 		
 		
 	}
