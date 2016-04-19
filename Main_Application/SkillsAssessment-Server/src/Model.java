@@ -305,12 +305,13 @@ public class Model{
 				questions.delete(question);
 				questions.commit();
 				for(Question q:allQuestions){
-					if(q.getNumber()>number){
+					if(q.getNumber()>=number){
 						q.setNumber(q.getNumber()-1);
 						questions.store(q);
 						questions.commit();
 					}
 				}
+				break;
 			}
 		}
 	}

@@ -34,6 +34,7 @@ public class Test {
 		controller.getAllCompetencies();
 		controller.setQuestion();
 		controller.getAllQuestions();
+		controller.deleteQuestion();
 		
 		
 		

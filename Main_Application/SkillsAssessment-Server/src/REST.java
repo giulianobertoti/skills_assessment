@@ -661,5 +661,69 @@ public class REST{
 		
 	}
 	
+	public void deleteQuestion(){
+		
+		post("/question/delete", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	           response.header("Access-Control-Allow-Origin", "*");
+
+	           JSONObject json = new JSONObject(request.body());
+	        	
+	           
+	        	
+	           int number = Integer.parseInt(json.getString("number"));
+	        	
+	           
+	           
+	           
+	           
+         	    
+         	   try {
+	            	
+	            		model.deleteQuestion(number);
+	            		
+	            		
+	            		
+	            		JSONArray jsonResult = new JSONArray();
+	 	         	    JSONObject jsonObj = new JSONObject();
+	     
+		        		jsonObj.put("status", 1);
+		        		
+		        		
+		             	jsonResult.put(jsonObj);
+		             	
+		             	
+		             	
+		             	return jsonResult;
+	            		
+	            	
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+         	    
+         	    JSONArray jsonResult = new JSONArray();
+         	    JSONObject jsonObj = new JSONObject();
+         	   	
+         	    jsonObj.put("status", 0);
+        		
+        		
+             	jsonResult.put(jsonObj);
+             	
+             	return jsonResult;
+         	   
+         	   
+	        	
+		   }
+		});     
+
+         
+    }
+	
 		
 }
