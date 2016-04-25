@@ -167,6 +167,8 @@ public class REST{
 
 	        		jsonObj.put("question", student.getQuestion());
 	        		jsonObj.put("completed", student.getCompleted());
+	        		jsonObj.put("statusComment", student.getStatusComment());
+	        		jsonObj.put("psychologistComment", student.getPsychologistComment());
 	        		
 	             	jsonResult.put(jsonObj);
 	             	
