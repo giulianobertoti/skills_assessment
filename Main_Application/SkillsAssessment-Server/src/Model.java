@@ -15,7 +15,7 @@ public class Model{
 	ObjectContainer institutions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions.db4o");
 	
 	
-	public void addStudent(Student student){
+	public boolean addStudent(Student student){
 		
 		if(isUserAvailable(student.getUserName())){
 			List<Competency> studentsCompetencies = new LinkedList<Competency>();
@@ -32,8 +32,12 @@ public class Model{
 		    
 		    
 			students.store(student);
+			students.commit();
+			
+			return true;
 		}
 		
+		return false;
 		
 	}
 	

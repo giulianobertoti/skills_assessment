@@ -11,11 +11,11 @@ public class Student {
 	private String course;
 	private int year;
 	private int period;
-	private List<Competency> competencies = new LinkedList<Competency>();
-	private int question = 1;
-	private boolean completed = false;
-	private String psychologistComment = "";
-	private boolean statusComment = false;
+	private List<Competency> competencies;
+	private int question;
+	private boolean completed;
+	private String psychologistComment;
+	private boolean statusComment;
 	
 	public Student(String userName, String password, String name, int ra,
 			String institution, String course, int year, int period) {
@@ -28,6 +28,12 @@ public class Student {
 		this.course = course;
 		this.year = year;
 		this.period = period;
+		this.competencies = new LinkedList<Competency>();
+		this.question = 1;
+		this.completed = false;
+		this.psychologistComment = "";
+		this.statusComment = false;
+		
 	}
 
 

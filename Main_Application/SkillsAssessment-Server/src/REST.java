@@ -727,5 +727,69 @@ public class REST{
          
     }
 	
+	public void setStudent(){
+		
+		post("/student", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	           response.header("Access-Control-Allow-Origin", "*");
+
+	           Gson gson = new Gson();
+	           
+	           String json = request.body();
+	           
+	           System.out.println(json);
+	           
+	           Student student = gson.fromJson(json, Student.class);
+	           
+	           
+	           
+         	    
+         	   try {
+	            	
+	            		boolean status = model.addStudent(student);
+	            		
+	            		if(status){
+	            			
+	            			JSONArray jsonResult = new JSONArray();
+		 	         	    JSONObject jsonObj = new JSONObject();
+		     
+			        		jsonObj.put("status", 1);
+			        		
+			        		
+			             	jsonResult.put(jsonObj);
+			             	
+			             	
+			             	
+			             	return jsonResult;
+	            		}
+	            		
+	            		
+	            		
+	            	
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+         	    
+         	    JSONArray jsonResult = new JSONArray();
+         	    JSONObject jsonObj = new JSONObject();
+         	   	
+         	    jsonObj.put("status", 0);
+        		
+        		
+             	jsonResult.put(jsonObj);
+             	
+             	return jsonResult;
+         	   
+         	   
+	        	
+		   }
+		});     
+	}
 		
 }

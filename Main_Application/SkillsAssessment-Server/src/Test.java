@@ -35,6 +35,7 @@ public class Test {
 		controller.setQuestion();
 		controller.getAllQuestions();
 		controller.deleteQuestion();
+		controller.setStudent();
 		
 		
 		
