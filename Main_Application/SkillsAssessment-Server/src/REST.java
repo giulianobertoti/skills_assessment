@@ -739,7 +739,7 @@ public class REST{
 	           
 	           String json = request.body();
 	           
-	           System.out.println(json);
+	           
 	           
 	           Student student = gson.fromJson(json, Student.class);
 	           

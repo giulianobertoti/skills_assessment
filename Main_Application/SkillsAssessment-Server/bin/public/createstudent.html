@@ -8,7 +8,7 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
 
-	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel=stylesheet>
+	<link href="css/bootstrap.min.css" rel=stylesheet>
 	
 	
 	<script>
@@ -22,7 +22,7 @@
 					
 						
 						
-						itemsInst.push("<option>" + this.institutionName + "</option>");
+						itemsInst.push("<option value='"+this.institutionName+"'>" + this.institutionName + "</option>");
 						
 					});
 								
@@ -42,11 +42,13 @@
 					$.each(data, function(i){
 					
 					
-						itemsCourse.push("<option>" + this.courseName + "</option>");
+						// itemsCourse.push("<option value='"+this.courseName+"'>" + this.courseName + "</option>");
+						
+						itemsCourse.push( $("<option>").val( this.courseName ).text( this.courseName ) );
 						
 					});
 							
-					$("#course").empty().append('<option>Escolha o Curso</option>');
+					$("#course").empty().append('<option value="">Escolha o Curso</option>');
 							
 					$("#course").append(itemsCourse);
 					
@@ -57,7 +59,8 @@
 				
 			});
 		
-			$("#createUser").click(function() {
+			$('form').submit(function(e){
+				e.preventDefault();
 				
 				var userName = $('#userName').val();
 				var password = $('#password').val();
@@ -70,7 +73,7 @@
 				
 				var url = JSON.stringify({"institution":institution,"password":password,"period":parseInt(period),"year":parseInt(year),"name":name,"course":course,"userName":userName,"ra":parseInt(ra), "question": 1, "competencies": [], "completed":false, "psychologistComment": "", "statusComment":false});
 				
-				alert(url);
+				
 				
 				$.post("/student", url, function(data){
 						
@@ -93,11 +96,11 @@
   <body>
 		<br>
 		<br>
-		<div class="form-horizontal" id="form">
+		<form class="form-horizontal" method="post" id="form">
 			<div class="form-group form-group">
 				<label for="inputEmail3" class="col-md-4 control-label">Email(Usuário)</label>
 				<div class="col-md-4">
-					<input type="email" class="form-control" id="userName" placeholder="Email">
+					<input required="required" type="email" class="form-control" id="userName" placeholder="Email">
 				</div>
 				<div class="col-md-4">
 					<label for="inputEmail3" class="control-label">Ex: joao@gmail.com</label>
@@ -109,17 +112,17 @@
 			<div class="form-group">
 				<label for="inputPassword3" class="col-md-4 control-label">Senha</label>
 				<div class="col-md-4">
-					<input type="password" class="form-control" id="password" placeholder="Password">
+					<input required="required" type="password" class="form-control" id="password" placeholder="Senha">
 				</div>
 				<div class="col-md-4">
-					<label for="inputEmail3" class="control-label">Ex: joao@gmail.com</label>
+					<label for="inputEmail3" class="control-label">Ex: 12345</label>
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label for="" class="col-md-4 control-label">Nome</label>
 				<div class="col-md-4">
-					<input type="" class="form-control" id="name" placeholder="Nome">
+					<input required="required" type="" class="form-control" id="name" placeholder="Nome">
 				</div>
 				<div class="col-md-4">
 					<label for="inputEmail3" class="control-label">Ex: João Bertoti</label>
@@ -131,10 +134,10 @@
 			<div class="form-group">
 				<label for="" class="col-md-4 control-label">RA</label>
 				<div class="col-md-4">
-					<input type="" class="form-control" id="ra" placeholder="RA">
+					<input required="required" type="number" class="form-control" id="ra" placeholder="RA">
 				</div>
 				<div class="col-md-4">
-					<label for="inputEmail3" class="control-label">Ex: 12345</label>
+					<label for="inputEmail3" class="control-label">Ex: 1212</label>
 				</div>
 				
 			</div>
@@ -143,7 +146,7 @@
 			<div class="form-group">
                 <label for="inputPassword3" class="col-md-4 control-label">Escolha sua FATEC</label>
 				<div class="col-md-4">
-					<select id="institution" class="input-large form-control">
+					<select required="required" id="institution" class="input-large form-control">
 						<option value="" selected="selected">Escolha a FATEC</option>
 					</select>
 				</div>
@@ -156,7 +159,7 @@
 			<div class="form-group">
                 <label for="inputPassword3" class="col-md-4 control-label">Escolha seu Curso</label>
                 <div class="col-md-4">
-					<select id="course" class="input-large form-control">
+					<select required="required" id="course" class="input-large form-control">
 						<option value="" selected="selected">Escolha o Curso</option>
 					</select>
 				</div>
@@ -168,11 +171,11 @@
 			<div class="form-group">
                 <label for="inputPassword3" class="col-md-4 control-label">Escolha seu Ano de Ingresso</label>
                 <div class="col-md-4">
-					<select id="year" class="input-large form-control">
+					<select required="required" id="year" class="input-large form-control">
 						<option value="" selected="selected">Escolha o ano</option>
-						<option value="">2016</option>
-						<option value="">2017</option>
-						<option value="">2018</option>
+						<option value="2016">2016</option>
+						<option value="2017">2017</option>
+						<option value="2018">2018</option>
 					</select>
 				</div>
 				<div class="col-md-4">
@@ -183,10 +186,10 @@
 			<div class="form-group">
                 <label for="inputPassword3" class="col-md-4 control-label">Escolha seu Ano de Ingresso</label>
                 <div class="col-md-4">
-					<select id="period" class="input-large form-control">
+					<select required="required" id="period" class="input-large form-control">
 						<option value="" selected="selected">Escolha o periodo</option>
-						<option value="">1</option>
-						<option value="">2</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
 					</select>
 				</div>
 				<div class="col-md-4">
@@ -201,7 +204,7 @@
 				</div>
 			</div>
 			
-		</div>
+		</form>
 
 		
 
