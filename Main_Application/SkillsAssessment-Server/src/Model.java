@@ -12,8 +12,8 @@ public class Model{
 	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students23.db4o");
 	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions2.db4o");
 	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies2.db4o");
-	ObjectContainer institutions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions.db4o");
-	
+	ObjectContainer institutions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions2.db4o");
+	ObjectContainer psychologists = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions.db4o");
 	
 	public boolean addStudent(Student student){
 		
@@ -41,6 +41,19 @@ public class Model{
 		
 	}
 	
+	public boolean addPsychologist(Psychologist psychologist){
+		if(isPsychologistUserAvailable(psychologist.getUserName())){
+			
+
+		    psychologists.store(psychologist);
+		    psychologists.commit();
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public boolean isUserAvailable(String username){
 		Query query = students.query();
 		query.constrain(Student.class);
@@ -48,6 +61,18 @@ public class Model{
 	    
 	    for(Student student:allStudents){
 	    	if(student.getUserName().equals(username)) return false;
+	    }
+	    
+	    return true;
+	}
+	
+	public boolean isPsychologistUserAvailable(String username){
+		Query query = psychologists.query();
+		query.constrain(Psychologist.class);
+	    ObjectSet<Psychologist> allPsychologists = query.execute();
+	    
+	    for(Psychologist psychologist:allPsychologists){
+	    	if(psychologist.getUserName().equals(username)) return false;
 	    }
 	    
 	    return true;
@@ -89,6 +114,26 @@ public class Model{
 		
 	}
 	
+	public Psychologist loginPsychologist(String username, String password){
+		
+		Query query = psychologists.query();
+		query.constrain(Psychologist.class);
+	    ObjectSet<Psychologist> allPsychologists = query.execute();
+		
+	    
+	    for(Psychologist psychologist:allPsychologists){
+	    	if(psychologist.getUserName().equals(username) && psychologist.getPassword().equals(password)){
+	    		
+	    		return psychologist;
+	    	}
+	    	
+	    }
+	    
+	    return null;
+
+	}
+	
+
 	public Student login(String username, String password){
 		
 		Query query = students.query();
@@ -107,8 +152,6 @@ public class Model{
 	    return null;
 
 	}
-	
-
 	
 	public Student searchStudentbyRA(int ra){
 		

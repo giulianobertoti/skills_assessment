@@ -36,6 +36,7 @@ public class Test {
 		controller.getAllQuestions();
 		controller.deleteQuestion();
 		controller.setStudent();
+		controller.loginPsychologist();
 		
 		
 		
@@ -63,6 +64,7 @@ public class Test {
 		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 2222, "fatecsjc", "bd", 2016, 1));
 		model.addStudent(new Student("giuliano@gmail.com", "12345", "Giuliano", 3333, "fatecsjc", "bd", 2016, 1));
 		
+		model.addPsychologist(new Psychologist("marilia@gmail.com", "12345", "Marilia Bertoti", "Fatec SJC"));
 		
 		
 		//adicionando a questao 1

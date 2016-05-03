@@ -12,84 +12,94 @@
 
 	<script>
 		$(document).ready(function(){
+			
+			var userName = sessionStorage.getItem("userName");
+				
+				if(userName == null){
+				
+					window.location.href = '/loginpsychologist.html';
+				
+				} else {
+				
+					$.getJSON("/institutions?format=json&jsoncallback=",function(data) {
+							var itemsInst = [];
+							
+							$.each(data, function(i){
+							
+								
+								
+								itemsInst.push("<option>" + this.institutionName + "</option>");
+								
+							});
+										
+							$("#dataInstitution").append(itemsInst);
+							
+					});
+					
+					$('#dataInstitution').on('change', function(){
+						
+						
+						
+						var selected = $(this).find("option:selected").val();
+						
+						$.getJSON("/courses/"+selected+"?format=json&jsoncallback=",function(data) {
+							var itemsCourse = [];
+							
+							$.each(data, function(i){
+							
+							
+								itemsCourse.push("<option>" + this.courseName + "</option>");
+								
+							});
+									
+							$("#dataCourse").empty().append('<option>Escolha o Curso</option>');
+									
+							$("#dataCourse").append(itemsCourse);
+							
+							
+							
+						});
+						
+						
+					});
+					
+				}
+				
+				$("#next").click(function() {
+				
+					var selectedInstitution = $( "#dataInstitution option:selected" ).text();
+					var selectedCourse = $( "#dataCourse option:selected" ).text();
+					var selectedYear = $( "#dataYear option:selected" ).text();
+					var selectedPeriod = $( "#dataPeriod option:selected" ).text();
+					
+					$("#dataRows").empty();
+					
+					var url = "/students/"+selectedInstitution+"/"+selectedCourse+"/"+selectedYear+"/"+selectedPeriod+"?format=json&jsoncallback=";
+					
 		
-			$.getJSON("/institutions?format=json&jsoncallback=",function(data) {
-					var itemsInst = [];
-					
-					$.each(data, function(i){
-					
+					$.getJSON(url,function(data) {
+						var items = [];
 						
+						$.each(data, function(i){
 						
-						itemsInst.push("<option>" + this.institutionName + "</option>");
+							var status = [];
 						
-					});
-								
-					$("#dataInstitution").append(itemsInst);
-					
-			});
-			
-			$('#dataInstitution').on('change', function(){
-				
-				
-				
-				var selected = $(this).find("option:selected").val();
-				
-				$.getJSON("/courses/"+selected+"?format=json&jsoncallback=",function(data) {
-					var itemsCourse = [];
-					
-					$.each(data, function(i){
-					
-					
-						itemsCourse.push("<option>" + this.courseName + "</option>");
-						
-					});
+							if(this.status == 1){
+								status.push("<p class='text-danger'>O aluno ainda não terminou o questionário</p>");
+							} else if (this.status == 2){
+								status.push("<a class='btn btn-info' role='button' href='/psychologistcomment.html?"+this.ra+"'>Avaliar aluno</a>")
+							} else {
+								status.push("<p class='text-success'>Avaliação do aluno já realizada</p>")
+							}
 							
-					$("#dataCourse").empty().append('<option>Escolha o Curso</option>');
+							items.push("<tr><td>"+ this.ra +"</td> <td>"+ this.name + "</td> <td>"+ this.username + "</td> <td>"+ status + "</td> </tr>");
 							
-					$("#dataCourse").append(itemsCourse);
-					
-					
-					
-				});
-				
-				
-			});
-			
-			$("#next").click(function() {
-			
-				var selectedInstitution = $( "#dataInstitution option:selected" ).text();
-				var selectedCourse = $( "#dataCourse option:selected" ).text();
-				var selectedYear = $( "#dataYear option:selected" ).text();
-				var selectedPeriod = $( "#dataPeriod option:selected" ).text();
-				
-				$("#dataRows").empty();
-				
-				var url = "/students/"+selectedInstitution+"/"+selectedCourse+"/"+selectedYear+"/"+selectedPeriod+"?format=json&jsoncallback=";
-				
-	
-				$.getJSON(url,function(data) {
-					var items = [];
-					
-					$.each(data, function(i){
-					
-						var status = [];
-					
-						if(this.status == 1){
-							status.push("<p class='text-danger'>O aluno ainda não terminou o questionário</p>");
-						} else if (this.status == 2){
-							status.push("<a class='btn btn-info' role='button' href='/psychologistcomment.html?"+this.ra+"'>Avaliar aluno</a>")
-						} else {
-							status.push("<p class='text-success'>Avaliação do aluno já realizada</p>")
-						}
-						
-						items.push("<tr><td>"+ this.ra +"</td> <td>"+ this.name + "</td> <td>"+ this.username + "</td> <td>"+ status + "</td> </tr>");
+						});
+									
+						$("#dataRows").append(items);
 						
 					});
-								
-					$("#dataRows").append(items);
-					
 				});
-			});
 		});
 		
 		
