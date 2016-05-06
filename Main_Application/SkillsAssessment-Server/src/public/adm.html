@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+	
+    
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
+
+	<link href="css/bootstrap.min.css" rel=stylesheet>
+	
+	
+	<script>
+		$(document).ready(function(){
+			$('form').submit(function(e){    
+				
+				e.preventDefault();
+				
+				var username = $('#username').val().trim();
+				var password = $('#password').val().trim();
+				
+				$.getJSON("/login/"+username+"/"+password+"?format=json&jsoncallback=",function(data) {
+					
+					if(data[0].ra == 0){
+
+						window.location.href = '/index.html';
+						
+					} else if(data[0].completed==true){
+					
+							parseInt(sessionStorage.setItem("ra",data[0].ra));
+							
+							window.location.href = '/thankyou.html';
+
+					} else if(data[0].question==1){
+					
+						parseInt(sessionStorage.setItem("ra",data[0].ra));
+					
+						window.location.href = '/welcome.html';
+					
+					} else {
+					
+						parseInt(sessionStorage.setItem("ra",data[0].ra));
+
+					
+						window.location.href = '/question.html';
+					
+					}
+					
+					
+					
+				});
+			});
+		});
+	</script>
+
+   
+  </head>
+  <body>
+		<nav class="navbar navbar-default navbar-static-top">
+			
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Painel de Controle</a></li>
+					<li><a href="createquestion.html">Cadastrar Questão</a></li>
+					<li><a href="/managecompetencies.html">Gerenciar Competências</a></li>
+					<li><a href="">Cadastrar Psicóloga</a></li>
+					<li><a href="">Cadastrar Instituição</a></li>
+					<li><a href="">Cadastrar Curso</a></li>
+					<li><a href="">Cadastrar Funcionário</a></li>
+				</ul>
+          
+				
+        
+			</div>
+		</nav>
+
+		
+
+	
+  </body>
+</html>

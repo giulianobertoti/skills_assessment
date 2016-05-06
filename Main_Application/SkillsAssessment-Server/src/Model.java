@@ -11,7 +11,7 @@ public class Model{
 	
 	ObjectContainer students = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../students23.db4o");
 	ObjectContainer questions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../questions2.db4o");
-	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies2.db4o");
+	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies5.db4o");
 	ObjectContainer institutions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions2.db4o");
 	ObjectContainer psychologists = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions.db4o");
 	
@@ -90,8 +90,28 @@ public class Model{
 		questions.store(question);
 	}
 	
-	public void addCompetency(Competency competency){
-		competencies.store(competency);
+	public boolean addCompetency(Competency competency){
+		
+		if(isCompetencyNameAvailable(competency)){
+			competencies.store(competency);
+			competencies.commit();
+			return true;
+		}
+	    
+	    return false;
+		
+	}
+	
+	public boolean isCompetencyNameAvailable(Competency competency){
+		Query query = competencies.query();
+		query.constrain(Competency.class);
+	    List<Competency> allCompetencies = query.execute();
+	    
+	    for(Competency comp:allCompetencies){
+	    	if(comp.getName().toLowerCase().equals(competency.getName().toLowerCase())) return false; 
+	    }
+	    
+	    return true;
 	}
 	
 	public void addInstitution(Institution institution){
@@ -358,6 +378,21 @@ public class Model{
 						questions.commit();
 					}
 				}
+				break;
+			}
+		}
+	}
+	
+	
+	public void deleteCompetency(String competencyName){
+		Query query = competencies.query();
+		query.constrain(Competency.class);
+		List<Competency> allCompetencies = query.execute();
+		
+		for(Competency competency:allCompetencies){
+			if(competency.getName().toLowerCase().equals(competencyName.toLowerCase())){
+				competencies.delete(competency);
+				competencies.commit();
 				break;
 			}
 		}

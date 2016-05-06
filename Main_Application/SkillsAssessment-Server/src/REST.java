@@ -860,5 +860,140 @@ public class REST{
 
          
 	}
+	
+	public void setNewCompetency(){
+		
+		post("/newcompetency", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response) throws UnsupportedEncodingException{
+	        	
+	           response.header("Access-Control-Allow-Origin", "*");
+
+	           String data = request.body();
+	           byte text[] = data.getBytes("ISO-8859-1");
+	           String value = new String(text, "UTF-8");
+	        	
+	           
+	           
+	           JSONObject json = new JSONObject(value);
+	        	
+	           String newCompetency = json.getString("competency");
+	           
+	           
+	           	
+	           
+         	    
+	           try {
+	        	   
+	        	   boolean status = model.addCompetency(new Competency(newCompetency));
+           		
+           			if(status){
+           			
+           				JSONArray jsonResult = new JSONArray();
+	 	         	    JSONObject jsonObj = new JSONObject();
+	     
+		        		jsonObj.put("status", 1);
+		        		
+		        		
+		             	jsonResult.put(jsonObj);
+		             	
+		             	
+		             	
+		             	return jsonResult;
+           			}
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			//e.printStackTrace();
+
+	        		}
+	         	    	
+	
+	            JSONArray jsonResult = new JSONArray();
+        	    JSONObject jsonObj = new JSONObject();
+
+        	    jsonObj.put("status", 0);
+       		
+       		
+            	jsonResult.put(jsonObj);
+            	
+            	return jsonResult;
+         	   
+         	   
+	        	
+		   }
+		});     
+
+         
+	}
+	
+	public void deleteCompetency(){
+		
+		post("/competency/delete", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response) throws UnsupportedEncodingException{
+	        	
+	           response.header("Access-Control-Allow-Origin", "*");
+
+	           String data = request.body();
+	           
+	           byte text[] = data.getBytes("ISO-8859-1");
+	           String value = new String(text, "UTF-8");
+	           
+	           JSONObject json = new JSONObject(value);
+	        	
+	           
+	        	
+	           String competencyName = json.getString("competency").replaceAll("%20", " ");
+	        
+	           
+	           
+         	    
+         	   try {
+	            	
+	            		model.deleteCompetency(competencyName);
+	            		
+	            		
+	            		
+	            		JSONArray jsonResult = new JSONArray();
+	 	         	    JSONObject jsonObj = new JSONObject();
+	     
+		        		jsonObj.put("status", 1);
+		        		
+		        		
+		             	jsonResult.put(jsonObj);
+		             	
+		             	
+		             	
+		             	return jsonResult;
+	            		
+	            	
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			e.printStackTrace();
+	        		}
+         	    
+         	    JSONArray jsonResult = new JSONArray();
+         	    JSONObject jsonObj = new JSONObject();
+         	   	
+         	    jsonObj.put("status", 0);
+        		
+        		
+             	jsonResult.put(jsonObj);
+             	
+             	return jsonResult;
+         	   
+         	   
+	        	
+		   }
+		});     
+
+         
+    }
 		
 }

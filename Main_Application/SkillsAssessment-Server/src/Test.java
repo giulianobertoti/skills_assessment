@@ -13,6 +13,7 @@ public class Test {
 	
 	public static void main(String[] args) throws JSONException{
 		
+		Spark.port(8080);
 		
 		initializeModel();
 		
@@ -37,7 +38,8 @@ public class Test {
 		controller.deleteQuestion();
 		controller.setStudent();
 		controller.loginPsychologist();
-		
+		controller.setNewCompetency();
+		controller.deleteCompetency();
 		
 		
 	}
@@ -56,9 +58,9 @@ public class Test {
 		model.addInstitution(fatecsjc);
 		model.addInstitution(fatecmarilia);
 		
-		model.addCompetency(new Competency("resiliencia"));
-		model.addCompetency(new Competency("esforco"));
-		model.addCompetency(new Competency("concentracao"));
+		//model.addCompetency(new Competency("resiliencia"));
+		//model.addCompetency(new Competency("esforco"));
+		//model.addCompetency(new Competency("concentracao"));
 		
 		model.addStudent(new Student("joao@gmail.com", "12345", "Joao", 1111, "fatecsjc", "bd" ,2016, 1));
 		model.addStudent(new Student("lilian@gmail.com", "12345", "Lilian", 2222, "fatecsjc", "bd", 2016, 1));
