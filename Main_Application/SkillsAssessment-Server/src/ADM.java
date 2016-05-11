@@ -1,6 +1,7 @@
 
-public class Psychologist {
+public class ADM {
 
+	
 	private String userName;
 	private String password;
 	private String name;
@@ -8,7 +9,7 @@ public class Psychologist {
 	
 	
 	
-	public Psychologist(String userName, String password, String name, String institution) {
+	public ADM(String userName, String password, String name, String institution) {
 		this.userName = userName;
 		this.password = password;
 		this.name = name;
@@ -38,7 +39,5 @@ public class Psychologist {
 	public void setInstitution(String institution) {
 		this.institution = institution;
 	}
-	
-	
 	
 }

@@ -92,6 +92,142 @@ public class REST{
 
 	}
 	
+	public void loginPsychologist(){
+		
+		post("/login/psychologist", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	           response.header("Access-Control-Allow-Origin", "*");
+
+	        	
+	        	
+	        	
+	           JSONObject json = new JSONObject(request.body());
+	        	
+	           String userName = json.getString("userName");
+	           
+	           String password = json.getString("password");
+	           	
+	           
+         	    
+	           try {
+	        	   Psychologist psychologist = model.loginPsychologist(userName, password);
+	            	
+	            	if(psychologist != null){
+	            		
+	            		JSONArray jsonResult = new JSONArray();
+		         	    JSONObject jsonObj = new JSONObject();
+
+		        		jsonObj.put("status", 1);
+		        		jsonObj.put("userName", psychologist.getUserName());
+		        		
+		        		
+		             	jsonResult.put(jsonObj);
+		             	
+		             	return jsonResult;
+	            		
+	            	} else {
+	            		
+	            		
+	            		
+	            	}
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			//e.printStackTrace();
+
+	        		}
+	         	    	
+	
+	            JSONArray jsonResult = new JSONArray();
+        	    JSONObject jsonObj = new JSONObject();
+
+        	    jsonObj.put("status", 0);
+       		
+       		
+            	jsonResult.put(jsonObj);
+            	
+            	return jsonResult;
+         	   
+         	   
+	        	
+		   }
+		});     
+
+         
+	}
+	
+	
+	public void loginADM(){
+		
+		post("/login/adm", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+	           response.header("Access-Control-Allow-Origin", "*");
+
+	        	
+	        	
+	        	
+	           JSONObject json = new JSONObject(request.body());
+	        	
+	           String userName = json.getString("userName");
+	           
+	           String password = json.getString("password");
+	           	
+	           
+         	    
+	           try {
+	        	   ADM adm = model.loginADM(userName, password);
+	            	
+	            	if(adm != null){
+	            		
+	            		JSONArray jsonResult = new JSONArray();
+		         	    JSONObject jsonObj = new JSONObject();
+
+		        		jsonObj.put("status", 1);
+		        		jsonObj.put("userName", adm.getUserName());
+		        		
+		        		
+		             	jsonResult.put(jsonObj);
+		             	
+		             	return jsonResult;
+	            		
+	            	} else {
+	            		
+	            		
+	            		
+	            	}
+	            	
+	            	
+	             	
+	        		} catch (JSONException e) {
+	        				
+	        			//e.printStackTrace();
+
+	        		}
+	         	    	
+	
+	            JSONArray jsonResult = new JSONArray();
+        	    JSONObject jsonObj = new JSONObject();
+
+        	    jsonObj.put("status", 0);
+       		
+       		
+            	jsonResult.put(jsonObj);
+            	
+            	return jsonResult;
+         	   
+         	   
+	        	
+		   }
+		});     
+
+         
+	}
 	
 	public void getStudentCompetencies(){
 		
@@ -793,73 +929,7 @@ public class REST{
 	}
 	
 	
-	public void loginPsychologist(){
-		
-		post("/login/psychologist", new Route() {
-			@Override
-            public Object handle(final Request request, final Response response){
-	        	
-	           response.header("Access-Control-Allow-Origin", "*");
-
-	        	
-	        	
-	        	
-	           JSONObject json = new JSONObject(request.body());
-	        	
-	           String userName = json.getString("userName");
-	           
-	           String password = json.getString("password");
-	           	
-	           
-         	    
-	           try {
-	        	   Psychologist psychologist = model.loginPsychologist(userName, password);
-	            	
-	            	if(psychologist != null){
-	            		
-	            		JSONArray jsonResult = new JSONArray();
-		         	    JSONObject jsonObj = new JSONObject();
-
-		        		jsonObj.put("status", 1);
-		        		jsonObj.put("userName", psychologist.getUserName());
-		        		
-		        		
-		             	jsonResult.put(jsonObj);
-		             	
-		             	return jsonResult;
-	            		
-	            	} else {
-	            		
-	            		
-	            		
-	            	}
-	            	
-	            	
-	             	
-	        		} catch (JSONException e) {
-	        				
-	        			//e.printStackTrace();
-
-	        		}
-	         	    	
 	
-	            JSONArray jsonResult = new JSONArray();
-        	    JSONObject jsonObj = new JSONObject();
-
-        	    jsonObj.put("status", 0);
-       		
-       		
-            	jsonResult.put(jsonObj);
-            	
-            	return jsonResult;
-         	   
-         	   
-	        	
-		   }
-		});     
-
-         
-	}
 	
 	public void setNewCompetency(){
 		
@@ -992,6 +1062,140 @@ public class REST{
 	        	
 		   }
 		});     
+		
+	}
+	
+	public void setNewCourse(){
+			
+			post("/newcourse", new Route() {
+				@Override
+	            public Object handle(final Request request, final Response response) throws UnsupportedEncodingException{
+		        	
+		           response.header("Access-Control-Allow-Origin", "*");
+
+		           String data = request.body();
+		           byte text[] = data.getBytes("ISO-8859-1");
+		           String value = new String(text, "UTF-8");
+		        	
+		           
+		           
+		           JSONObject json = new JSONObject(value);
+		        	
+		           String newCourse = json.getString("course");
+		           String institution = json.getString("institution");
+		           
+		           	
+		           
+	         	    
+		           try {
+		        	   
+		        	   boolean status = model.addCourse(institution, newCourse);
+	           		
+	           			if(status){
+	           			
+	           				JSONArray jsonResult = new JSONArray();
+		 	         	    JSONObject jsonObj = new JSONObject();
+		     
+			        		jsonObj.put("status", 1);
+			        		
+			        		
+			             	jsonResult.put(jsonObj);
+			             	
+			             	
+			             	
+			             	return jsonResult;
+	           			}
+		            	
+		            	
+		             	
+		        		} catch (JSONException e) {
+		        				
+		        			//e.printStackTrace();
+
+		        		}
+		         	    	
+		
+		            JSONArray jsonResult = new JSONArray();
+	        	    JSONObject jsonObj = new JSONObject();
+
+	        	    jsonObj.put("status", 0);
+	       		
+	       		
+	            	jsonResult.put(jsonObj);
+	            	
+	            	return jsonResult;
+	         	   
+	         	   
+		        	
+			   }
+			});     
+
+	         
+		}
+		
+		public void deleteCourse(){
+			
+			post("/course/delete", new Route() {
+				@Override
+	            public Object handle(final Request request, final Response response) throws UnsupportedEncodingException{
+		        	
+		           response.header("Access-Control-Allow-Origin", "*");
+
+		           String data = request.body();
+		           
+		           byte text[] = data.getBytes("ISO-8859-1");
+		           String value = new String(text, "UTF-8");
+		           
+		           JSONObject json = new JSONObject(value);
+		        	
+		           
+		        	
+		           String courseName = json.getString("course");
+		           String institution = json.getString("institution");
+		           
+		           
+	         	    
+	         	   try {
+		            	
+		            		model.deleteCourse(courseName, institution);
+		            		
+		            		
+		            		
+		            		JSONArray jsonResult = new JSONArray();
+		 	         	    JSONObject jsonObj = new JSONObject();
+		     
+			        		jsonObj.put("status", 1);
+			        		
+			        		
+			             	jsonResult.put(jsonObj);
+			             	
+			             	
+			             	
+			             	return jsonResult;
+		            		
+		            	
+		            	
+		            	
+		             	
+		        		} catch (JSONException e) {
+		        				
+		        			e.printStackTrace();
+		        		}
+	         	    
+	         	    JSONArray jsonResult = new JSONArray();
+	         	    JSONObject jsonObj = new JSONObject();
+	         	   	
+	         	    jsonObj.put("status", 0);
+	        		
+	        		
+	             	jsonResult.put(jsonObj);
+	             	
+	             	return jsonResult;
+	         	   
+	         	   
+		        	
+			   }
+			});     
 
          
     }

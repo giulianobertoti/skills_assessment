@@ -14,6 +14,7 @@ public class Model{
 	ObjectContainer competencies = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../competencies5.db4o");
 	ObjectContainer institutions = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions2.db4o");
 	ObjectContainer psychologists = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../institutions.db4o");
+	ObjectContainer adms = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "../adms.db4o");
 	
 	public boolean addStudent(Student student){
 		
@@ -54,6 +55,19 @@ public class Model{
 		return false;
 	}
 	
+	public boolean addADM(ADM adm){
+		if(isADMUserAvailable(adm.getUserName())){
+			
+
+		    adms.store(adm);
+		    adms.commit();
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public boolean isUserAvailable(String username){
 		Query query = students.query();
 		query.constrain(Student.class);
@@ -73,6 +87,18 @@ public class Model{
 	    
 	    for(Psychologist psychologist:allPsychologists){
 	    	if(psychologist.getUserName().equals(username)) return false;
+	    }
+	    
+	    return true;
+	}
+	
+	public boolean isADMUserAvailable(String username){
+		Query query = adms.query();
+		query.constrain(ADM.class);
+	    ObjectSet<ADM> allADMs = query.execute();
+	    
+	    for(ADM adm:allADMs){
+	    	if(adm.getUserName().equals(username)) return false;
 	    }
 	    
 	    return true;
@@ -118,20 +144,62 @@ public class Model{
 		institutions.store(institution);
 	}
 	
-	public void addCourse(String institutionName, String courseName){
+	public boolean addCourse(String institutionName, String courseName){
 		
 		Query query = institutions.query();
 		query.constrain(Institution.class);
 	    List<Institution> allInstitutions = query.execute();
 	    
 	    for(Institution institution:allInstitutions){
-	    	if(institution.getInstitutionName().equals(institutionName)){
+	    	if(institution.getInstitutionName().toLowerCase().equals(institutionName.toLowerCase())){
 	    		institution.addCourse(courseName);
 	    		institutions.store(institution.getCourses());
 	    		institutions.commit();
+	    		return true;
 	    	}
 	    }
+		return false;
+	}
+	
+	public void deleteCourse(String courseName, String institutionName){
+		Query query = institutions.query();
+		query.constrain(Institution.class);
+	    List<Institution> allInstitutions = query.execute();
 		
+	    for(Institution institution:allInstitutions){
+	    	if(institution.getInstitutionName().toLowerCase().equals(institutionName.toLowerCase())){
+				for(Course course:institution.getCourses()){
+					if(course.getCourseName().toLowerCase().equals(courseName.toLowerCase())){
+						institution.getCourses().remove(course);
+						institutions.store(institution.getCourses()); //to update an array in DB4O you must reference it explicitly -> Object.List -> if you reference only the Object like you do with others attributes it does not work
+		    			institutions.commit();
+						break;
+					}
+				}
+	    		
+				
+			}
+		}
+	}
+	
+
+	public Student login(String username, String password){
+		
+		Query query = students.query();
+		query.constrain(Student.class);
+	    ObjectSet<Student> allStudents = query.execute();
+		
+	    
+	    for(Student student:allStudents){
+	    	if(student.getUserName().equals(username) && student.getPassword().equals(password)){
+	    		
+	    		return student;
+	    	}
+	    	
+	    }
+	    
+	    return null;
+
 	}
 	
 	public Psychologist loginPsychologist(String username, String password){
@@ -153,18 +221,17 @@ public class Model{
 
 	}
 	
-
-	public Student login(String username, String password){
+	public ADM loginADM(String username, String password){
 		
-		Query query = students.query();
-		query.constrain(Student.class);
-	    ObjectSet<Student> allStudents = query.execute();
+		Query query = adms.query();
+		query.constrain(ADM.class);
+	    ObjectSet<ADM> allADMs = query.execute();
 		
 	    
-	    for(Student student:allStudents){
-	    	if(student.getUserName().equals(username) && student.getPassword().equals(password)){
+	    for(ADM adm:allADMs){
+	    	if(adm.getUserName().equals(username) && adm.getPassword().equals(password)){
 	    		
-	    		return student;
+	    		return adm;
 	    	}
 	    	
 	    }

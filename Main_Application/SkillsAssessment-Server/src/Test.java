@@ -40,6 +40,9 @@ public class Test {
 		controller.loginPsychologist();
 		controller.setNewCompetency();
 		controller.deleteCompetency();
+		controller.setNewCourse();
+		controller.deleteCourse();
+		controller.loginADM();
 		
 		
 	}
@@ -54,6 +57,7 @@ public class Test {
 		fatecmarilia.addCourse("bd");
 		fatecmarilia.addCourse("aeronautica");
 		
+		model.addADM(new ADM("adm@adm.com", "12345", "João", "Fatec"));
 		
 		model.addInstitution(fatecsjc);
 		model.addInstitution(fatecmarilia);
