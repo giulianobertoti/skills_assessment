@@ -1,0 +1,155 @@
+<html lang = "pt">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	
+	<title>Visual Novel IHC</title>
+
+	<script src="../js/jquery-latest.min.js"></script>
+	<script src="../js/Chart.js"></script>
+	<script type="text/javascript" src="js-vine.js"></script>
+	<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>	
+	<script type="text/javascript" src="novelIHC.js"></script>
+	
+	<link href="../css/bootstrap.min.css" rel=stylesheet>
+
+	
+	
+	<script>
+	
+		$( document ).ready(function(){
+			document.getElementById("radarChart").style.display = 'none';
+			$(BotaoIniciar).click(function(){
+				sessionStorage.setItem("nome",$("#nomeAluno").val());
+				sessionStorage.setItem("curso",$("#cursos option:selected").text());
+				sessionStorage.setItem("email",$("#emailAluno").val());
+				document.getElementById("emailAluno").disabled = true;
+				document.getElementById("nomeAluno").disabled = true;
+				document.getElementById("cursos").disabled = true;
+				document.getElementById("BotaoIniciar").disabled = true;			
+				initNovel(800,600);
+			});
+		});
+	
+	</script>
+	
+	<style type="text/css">
+	#Ed%20the%20Salesman{
+		max-width:200px;
+		max-height:150px;
+		width: auto;
+		height: auto;
+	}
+	
+	#div_campos{
+		width: 800px;
+		margin-left: auto;
+		margin-right: auto;
+		position: relative;
+		text-align: center;
+	}
+	
+	body {
+		text-align: center;
+	}
+	
+	#radarChart {
+		padding-left: 0;
+		padding-right: 0;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+		width: 800px;
+	}	
+
+	#novelDiv {
+		width: 800px;
+		height: 550px;
+		margin-left: auto;
+		margin-right: auto;
+		position: relative;
+		text-align: center;
+	}
+
+	#dialogDiv {
+		font-family: Arial;
+		font-size: 18px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 800px;
+		height: 100px;
+		padding: 5px;
+		border-top: none;
+		background-color: #337ab7;
+		color: white;
+		text-align: left;
+		position: relative;
+	}
+
+	.menuItem {
+		width: 75%;
+		margin: 0.5em auto;
+		padding: 0.5em 3em;
+		background-color: #337ab7;
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+		text-align: center;
+		color: white;
+		font-family: Arial;
+		font-size: 18px;
+		
+	}
+
+	.menuItem:hover {
+		background-color: #153e62;
+	}
+	</style>
+
+</head>
+
+
+<body>
+	<br>
+	<div id = "div_campos">
+		<div class="col-md-3">
+			<input type="nome" class="form-control" id="nomeAluno" placeholder="Nome">
+		</div>
+			
+		<div class="col-md-4">
+			<input type="email" class="form-control" id="emailAluno" placeholder="Email">
+		</div>
+		
+		<div class="col-md-2">
+			<select id = "cursos" class = "form-control">
+				<optgroup label = "Curso">
+				<option>ADS</option>
+				<option>BD</option>
+			</select>
+		</div>
+		
+		<div class="col-md-1">
+			<input type="button" class = "btn btn-primary" value="Iniciar" id="BotaoIniciar"/>
+		</div>
+		
+		<div class="col-md-1">
+			<input type="button" class = "btn btn-default" value="Recomecar" onclick = "history.go(0)" VALUE="Refresh"/>
+		</div>
+	</div>
+	
+	<br>
+	<br>
+	<br>
+	
+	<div id="novelDiv">
+		<div style="position: absolute; left:0; top: 0; z-index:-1">
+			<img id="background0" src="empty.png"/>
+		</div>
+		<div style="position: absolute; left:0; top: 0; z-index:-1">
+			<img id="background1" src="empty.png"/>
+		</div>
+		<div id="dialogDiv"></div>
+	</div>
+	
+	<canvas id="radarChart" width="800" height="650"></canvas>
+	<br>
+</body>
+</html>
